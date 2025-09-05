@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -42,11 +44,18 @@ class Events
     private ?bool $is_public = null;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
-    private ?users $created_by = null;
+    private ?Users $created_by = null;
 
-    #[ORM\ManyToOne(inversedBy: 'event_id')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Registrations $registrations = null;
+    /**
+     * @var Collection<int, Registrations>
+     */
+    #[ORM\OneToMany(targetEntity: Registrations::class, mappedBy: 'event_id')]
+    private Collection $registrations;
+
+    public function __construct()
+    {
+        $this->registrations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -161,26 +170,44 @@ class Events
         return $this;
     }
 
-    public function getCreatedBy(): ?users
+    public function getCreatedBy(): ?Users
     {
         return $this->created_by;
     }
 
-    public function setCreatedBy(?users $created_by): static
+    public function setCreatedBy(?Users $created_by): static
     {
         $this->created_by = $created_by;
 
         return $this;
     }
 
-    public function getRegistrations(): ?Registrations
+    /**
+     * @return Collection<int, Registrations>
+     */
+    public function getRegistrations(): Collection
     {
         return $this->registrations;
     }
 
-    public function setRegistrations(?Registrations $registrations): static
+    public function addRegistration(Registrations $registration): static
     {
-        $this->registrations = $registrations;
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations->add($registration);
+            $registration->setEventId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRegistration(Registrations $registration): static
+    {
+        if ($this->registrations->removeElement($registration)) {
+            // set the owning side to null (unless already changed)
+            if ($registration->getEventId() === $this) {
+                $registration->setEventId(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil - EventHub{% endblock %}
+
+{% block body %}
+    <div class="container mt-4" style="background-color: #1E1E1E; color: #D3D3D3;">
+        <h1 style="color: #F28C38;">Bienvenue sur EventHub</h1>
+        <p>Découvrez nos événements publics :</p>
+        <div class="row">
+            {% for event in events %}
+                <div class="col-12 col-md-4 mb-4">
+                    <div class="card" style="background-color: #2F2F2F; color: #D3D3D3;">
+                        <div class="card-body">
+                            <h5 class="card-title" style="color: #F28C38;">{{ event.title }}</h5>
+                            <p class="card-text">Date : {{ event.startDate ? event.startDate|date('d/m/Y H:i') : 'Non définie' }}</p>
+                            <p class="card-text">Lieu : {{ event.location ?: 'Non défini' }}</p>
+                            <a href="#" class="btn" style="background-color: #F28C38; color: #1E1E1E;">Voir plus</a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <p>Aucun événement public pour le moment.</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
