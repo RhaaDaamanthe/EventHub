@@ -1,0 +1,196 @@
+body {
+    background-color: #2F2F2F;
+    color: #D3D3D3;
+    font-family: Arial, sans-serif;
+}
+
+.flex {
+    display: flex;
+}
+/* --- Header de la page d'accueil --- */
+
+.page-header {
+    position: relative;
+    color: white;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.top-header {
+    position: relative;
+    z-index: 2;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 10px;
+}
+
+.logo-container {
+    /* Style du conteneur du logo si besoin */
+}
+
+.navbar-logo {
+    height: 40px;
+}
+
+.header-right-menu {
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.navbar-links {
+    gap: 1.5rem;
+}
+
+.nav-link {
+    color: white !important;
+    text-decoration: none;
+    font-size: 1.25rem;
+}
+
+.nav-link.active {
+    color: #F28C38 !important;
+}
+
+.menu-burger {
+    background: none;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    height: 40px;
+}
+
+.navbar-toggler-icon {
+    /* Style de l'icône de burger */
+}
+
+
+/* --- Barre de recherche --- */
+.bottom-header {
+    background-image: url('../Images/search-event.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    padding: 3rem 0;
+}
+
+.search-bar-container {
+    position: relative;
+    width: 350px; /* Ajuste la largeur du conteneur selon tes besoins */
+}
+
+.search-input {
+    width: 100%; /* Le champ prend toute la largeur du conteneur */
+    padding: 0.5rem 1rem;
+    padding-right: 110px; /* Espace pour le bouton */
+    border-radius: 25px; /* Bordures bien rondes */
+    border: none;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+}
+
+.search-btn {
+    position: absolute; /* Positionnement absolu par rapport au conteneur */
+    right: 0;
+    top: 0;
+    height: 100%; /* Prend toute la hauteur du champ de recherche */
+    padding: 0 1.5rem;
+    border-radius: 0 25px 25px 0; /* Bordures rondes seulement à droite */
+    border: none;
+    background-color: #F28C38;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background-color: #d87a2e; /* Couleur au survol */
+}
+
+/* --- Section des événements --- */
+.events-section {
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.section-title {
+    color: #F28C38;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.section-title::before {
+    content: '2';
+    background-color: #F28C38;
+    color: #2F2F2F;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.events-list {
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.event-card {
+    background-color: #1E1E1E;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.event-image {
+    width: 40%;
+    height: auto;
+    object-fit: cover;
+}
+
+.event-details {
+    padding: 1.5rem;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.event-title {
+    color: #F28C38;
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+}
+
+.event-info {
+    color: #D3D3D3;
+    font-size: 0.9rem;
+}
+
+.event-info span {
+    margin-right: 5px;
+}
+
+/* --- Footer --- */
+.footer {
+    background-color: #1E1E1E;
+    color: #D3D3D3;
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+    text-align: center;
+}
