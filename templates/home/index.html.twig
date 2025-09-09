@@ -1,34 +1,41 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil - EventHub{% endblock %}
+{% block title %}Accueil - EventHub
+{% endblock %}
 
 {% block body %}
-    <main class="container my-5">
-        <div class="events-section flex">
-            <h2 class="section-title">Événements à venir</h2>
-        </div>
-        
-        <div class="events-list flex">
-            {% for event in events %}
-                <div class="event-card flex">
-                    {% if event.image %}
-                        <img src="{{ asset('Images/events/wc-ftn.jpg') }}" alt="Image de l'événement" class="event-image">
-                    {% endif %}
-                    <div class="event-details flex">
-                        <h3 class="event-title">{{ event.title }}</h3>
-                        <div class="event-info">
-                            <p class="event-date">
-                                <span>🗓️</span> {{ event.startDate ? event.startDate|date('d/m/Y à H:i') : 'Non définie' }}
-                            </p>
-                            <p class="event-location">
-                                <span>📍</span> {{ event.location ?: 'Non défini' }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            {% else %}
-                <p class="no-events-message">Aucun événement public pour le moment.</p>
-            {% endfor %}
-        </div>
-    </main>
+	<main class="container">
+		<div class="events-section flex">
+        <h2 class="section-title flex">
+            <span class="events-count">{{ events|length }}</span> Événements à venir
+        </h2>
+		</div>
+
+		<div class="events-list flex">
+			{% for event in events %}
+				<div class="event-card">
+					{% if event.image %}
+						<img src="{{ asset('Images/events/' ~ event.image) }}" alt="Image de l'événement" class="event-image">
+					{% endif %}
+					<div class="event-title-bar">
+						<h3 class="event-title">{{ event.title }}</h3>
+					</div>
+					<div class="event-details flex">
+						<div class="event-info">
+							<p class="event-date">
+								<span>🗓️</span>
+								{{ event.startDate ? event.startDate|date('d/m/Y à H:i') : 'Non définie' }}
+							</p>
+							<p class="event-location">
+								<span>📍</span>
+								{{ event.location ?: 'Non défini' }}
+							</p>
+						</div>
+					</div>
+				</div>
+			{% else %}
+				<p class="no-events-message">Aucun événement public pour le moment.</p>
+			{% endfor %}
+		</div>
+	</main>
 {% endblock %}

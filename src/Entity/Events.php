@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -42,11 +44,19 @@ class Events
     private ?bool $is_public = null;
 
     #[ORM\ManyToOne(inversedBy: 'events')]
-    private ?users $created_by = null;
-
-    #[ORM\ManyToOne(inversedBy: 'event_id')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Registrations $registrations = null;
+    private ?Users $created_by = null;
+
+    /**
+     * @var Collection<int, Registrations>
+     */
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: Registrations::class, orphanRemoval: true)]
+    private Collection $registrations;
+
+    public function __construct()
+    {
+        $this->registrations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -61,7 +71,6 @@ class Events
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -73,7 +82,6 @@ class Events
     public function setDescription(string $description): static
     {
         $this->description = $description;
-
         return $this;
     }
 
@@ -85,7 +93,6 @@ class Events
     public function setStartDate(\DateTimeImmutable $start_date): static
     {
         $this->start_date = $start_date;
-
         return $this;
     }
 
@@ -97,7 +104,6 @@ class Events
     public function setEndDate(\DateTimeImmutable $end_date): static
     {
         $this->end_date = $end_date;
-
         return $this;
     }
 
@@ -109,7 +115,6 @@ class Events
     public function setLocation(string $location): static
     {
         $this->location = $location;
-
         return $this;
     }
 
@@ -121,7 +126,6 @@ class Events
     public function setImage(string $image): static
     {
         $this->image = $image;
-
         return $this;
     }
 
@@ -133,7 +137,6 @@ class Events
     public function setCapacity(int $capacity): static
     {
         $this->capacity = $capacity;
-
         return $this;
     }
 
@@ -145,7 +148,6 @@ class Events
     public function setRegisteredCount(?int $registered_count): static
     {
         $this->registered_count = $registered_count;
-
         return $this;
     }
 
@@ -157,31 +159,44 @@ class Events
     public function setIsPublic(bool $is_public): static
     {
         $this->is_public = $is_public;
-
         return $this;
     }
 
-    public function getCreatedBy(): ?users
+    public function getCreatedBy(): ?Users
     {
         return $this->created_by;
     }
 
-    public function setCreatedBy(?users $created_by): static
+    public function setCreatedBy(?Users $created_by): static
     {
         $this->created_by = $created_by;
-
         return $this;
     }
 
-    public function getRegistrations(): ?Registrations
+    /**
+     * @return Collection<int, Registrations>
+     */
+    public function getRegistrations(): Collection
     {
         return $this->registrations;
     }
 
-    public function setRegistrations(?Registrations $registrations): static
+    public function addRegistration(Registrations $registration): static
     {
-        $this->registrations = $registrations;
+        if (!$this->registrations->contains($registration)) {
+            $this->registrations->add($registration);
+            $registration->setEvent($this);
+        }
+        return $this;
+    }
 
+    public function removeRegistration(Registrations $registration): static
+    {
+        if ($this->registrations->removeElement($registration)) {
+            if ($registration->getEvent() === $this) {
+                $registration->setEvent(null);
+            }
+        }
         return $this;
     }
 }

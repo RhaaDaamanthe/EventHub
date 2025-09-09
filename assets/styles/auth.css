@@ -1,0 +1,109 @@
+/* Styles pour la page de connexion et d'inscription */
+
+/* Conteneur principal du formulaire */
+.auth-container {
+background-color: white;
+border-radius: 12px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+width: 100%;
+max-width: 300px;
+margin: 50px auto 100px auto;
+padding: 30px;
+text-align: center;
+}
+
+/* Titre du formulaire */
+.auth-title {
+color: #F9780D;
+font-size: 2rem;
+font-weight: bold;
+margin-bottom: 20px;
+}
+
+/* Formulaire */
+.auth-form {
+display: flex;
+flex-direction: column;
+}
+
+/* Labels des champs */
+.auth-label {
+color: #333333;
+font-size: 1rem;
+font-weight: 500;
+text-align: left;
+margin-bottom: 5px;
+margin-top: 15px;
+}
+
+/* Champs de saisie */
+.auth-input {
+width: 100%;
+padding: 10px 15px;
+border: 1px solid #ddd;
+border-radius: 8px;
+font-size: 1rem;
+color: #333333;
+}
+
+.auth-input:focus {
+outline: none;
+border-color: #F9780D;
+box-shadow: 0 0 0 3px rgba(249, 120, 13, 0.2);
+}
+
+/* Bouton du formulaire */
+.auth-button {
+background-color: #F9780D;
+color: white;
+font-size: 1.2rem;
+font-weight: bold;
+padding: 12px;
+border: none;
+border-radius: 8px;
+cursor: pointer;
+margin-top: 25px;
+transition: background-color 0.3s;
+}
+
+.auth-button:hover {
+background-color: #d87a2e;
+}
+
+/* Lien d'inscription ou de déconnexion */
+.auth-link {
+font-size: 0.9rem;
+color: #666;
+margin-top: 20px;
+}
+
+.auth-link a {
+color: #F9780D;
+text-decoration: none;
+font-weight: bold;
+}
+
+.auth-link a:hover {
+text-decoration: underline;
+}
+
+/* Alertes d'erreur */
+.alert {
+padding: 15px;
+margin-bottom: 20px;
+border: 1px solid transparent;
+border-radius: 4px;
+text-align: left;
+}
+
+.alert-danger {
+color: #a94442;
+background-color: #f2dede;
+border-color: #ebccd1;
+}
+
+.alert-info {
+color: #31708f;
+background-color: #d9edf7;
+border-color: #bce8f1;
+}

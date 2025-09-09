@@ -1,20 +1,50 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}S'inscrire{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/auth.css') }}">
+{% endblock %}
+
+{% block top_header_content %}
+    {{ parent() }}
+{% endblock %}
+
+{% block bottom_header_content %}
+    {# Ce bloc est laissé vide pour ne pas afficher le contenu #}
+{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <main>
+        <div class="auth-container">
+            <h1 class="auth-title">Créer un compte</h1>
 
-    {{ form_errors(registrationForm) }}
+            {{ form_errors(registrationForm) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
+                <label for="registration_form_username" class="auth-label">Nom d'utilisateur</label>
+                {{ form_widget(registrationForm.username, {'attr': {'class': 'auth-input'}}) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                <label for="registration_form_email" class="auth-label">Email</label>
+                {{ form_widget(registrationForm.email, {'attr': {'class': 'auth-input'}}) }}
+
+                <label for="registration_form_plainPassword" class="auth-label">Mot de passe</label>
+                {{ form_widget(registrationForm.plainPassword, {
+                    label: 'Password',
+                    attr: {'class': 'auth-input'}
+                }) }}
+
+                <div class="auth-checkbox-container" style="display: flex; align-items: center; margin-top: 15px;">
+                    {{ form_widget(registrationForm.agreeTerms) }}
+                    <label for="registration_form_agreeTerms" style="font-size: 0.9rem; color: #666; margin-left: 5px;">Accepter les termes</label>
+                </div>
+
+                <button type="submit" class="auth-button">S'inscrire</button>
+
+                <p class="auth-link">
+                    Vous avez déjà un compte ? <a href="{{ path('app_login') }}">Se connecter</a>
+                </p>
+            {{ form_end(registrationForm) }}
+        </div>
+    </main>
 {% endblock %}
