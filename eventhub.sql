@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 08 sep. 2025 à 14:33
+-- Généré le : mar. 09 sep. 2025 à 14:20
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `doctrine_migration_versions`;
 CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `version` varchar(191) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `executed_at` datetime DEFAULT NULL,
   `execution_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
@@ -52,7 +52,6 @@ DROP TABLE IF EXISTS `events`;
 CREATE TABLE IF NOT EXISTS `events` (
   `id` int NOT NULL AUTO_INCREMENT,
   `created_by_id` int DEFAULT NULL,
-  `registrations_id` int NOT NULL,
   `title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `start_date` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
@@ -63,9 +62,17 @@ CREATE TABLE IF NOT EXISTS `events` (
   `registered_count` int DEFAULT NULL,
   `is_public` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_5387574AB03A8386` (`created_by_id`),
-  KEY `IDX_5387574A8279080` (`registrations_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `IDX_5387574AB03A8386` (`created_by_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `events`
+--
+
+INSERT INTO `events` (`id`, `created_by_id`, `title`, `description`, `start_date`, `end_date`, `location`, `image`, `capacity`, `registered_count`, `is_public`) VALUES
+(10, 7, 'Coupe du monde de Fortnite ', 'Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum quemquam ad hanc accusationem fuisse, cui, utrum vellet, liceret, nec, cum descendisset, quicquam habiturum spei fuisse, nisi alicuius intolerabili libidine et nimis acerbo odio niteretur. Sed ego Atratino, humanissimo atque optimo adulescenti meo necessario, ignosco, qui habet excusationem vel pietatis vel necessitatis vel aetatis. Si voluit accusare, pietati tribuo, si iussus est, necessitati, si speravit aliquid, pueritiae. Ceteris non modo nihil ignoscendum, sed etiam acriter est resistendum', '2025-10-11 18:30:00', '2025-10-15 21:00:00', 'Arthur Ashe Stadium, New York', 'wc-ftn.jpg', 3000, 0, 1),
+(11, 8, 'Crêpes party', 'Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum quemquam ad hanc accusationem fuisse, cui, utrum vellet, liceret, nec,', '2025-11-26 19:00:00', '2025-11-26 23:00:00', 'Chez moi, Bellignat', 'crepes-party.png', 6, 0, 1),
+(12, 9, 'Balade au Crêt de Chalam', 'Pour tout le monde, même les débutants !', '2025-10-15 10:00:00', '2025-10-15 16:42:31', 'Crêt de Chalam, Jura', 'chalam.jpg', 15, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -97,10 +104,12 @@ CREATE TABLE IF NOT EXISTS `messenger_messages` (
 DROP TABLE IF EXISTS `registrations`;
 CREATE TABLE IF NOT EXISTS `registrations` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `user_id_id` int NOT NULL,
+  `user_id_id` int DEFAULT NULL,
+  `event_id_id` int DEFAULT NULL,
   `registered_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),
-  KEY `IDX_53DE51E79D86650F` (`user_id_id`)
+  KEY `IDX_53DE51E79D86650F` (`user_id_id`),
+  KEY `IDX_53DE51E73E5F2F7B` (`event_id_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -112,23 +121,30 @@ CREATE TABLE IF NOT EXISTS `registrations` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` json NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `username` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:array)',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_active`, `created_at`, `roles`) VALUES
-(1, 'test', 'test@gmail.com', 'test01.', 1, '2025-09-08 14:15:35', '[\"ROLE_ADMIN\"]'),
-(2, 'bob', 'bob@gmail.com', 'bob012', 1, '2025-09-08 14:15:35', '[\"ROLE_USER\"]'),
-(3, 'toto', 'toto@gmail.com', 'toto01', 1, '2025-09-08 14:15:35', '[\"ROLE_USER\"]');
+INSERT INTO `users` (`id`, `email`, `roles`, `password`, `username`, `is_active`, `created_at`) VALUES
+(2, 'test@gmail.com', '[]', '$2y$13$FJ1EKpA9vTc4INZENAwLQuSSUQWYzMgsWi2haVWWZUudAtDeXiXRi', 'test', 0, '2025-09-05 09:28:36'),
+(3, 'oui@gmail.com', '[]', '$2y$13$myjGJ2MG6Yw6nxg/oFLHTu95KcbZPIiaHM0LUIKfaKGKNnSUjDP2C', 'oui', 0, '2025-09-05 09:53:27'),
+(4, 'non@gmail.com', '[]', '$2y$13$tXF59co5/zieidH59fJeO.A8GPdskrkGIIMVyX0jGfgrYvVHIA/tO', 'non', 0, '2025-09-05 10:01:03'),
+(5, 'toto@gmail.com', '[]', '$2y$13$BsvtdIITp0YhM3oFBoQxIeJAzzBlEcow3GHixdn1FNP5kc5CJ3YcW', 'toto', 0, '2025-09-05 11:31:51'),
+(6, 'bob@gmail.com', '[]', '$2y$13$C.MBWAVj6NpdUq/RGsvJROI0krQQEGO8WXdVMEqW.z287gPyLIUk2', 'Bob', 0, '2025-09-05 13:03:36'),
+(7, 'admin@eventhub.com', '[\"ROLE_ADMIN\"]', '$2y$13$N9qo8uLOickgx2ZMRZo5i.ejvY9rEYprQxC.fqgIJ5MfEyu/2h1K.', 'admin', 1, '2025-09-09 09:06:20'),
+(8, 'alice@example.com', '[\"ROLE_USER\"]', '$2y$13$N9qo8uLOickgx2ZMRZo5i.ejvY9rEYprQxC.fqgIJ5MfEyu/2h1K.', 'alice', 1, '2025-09-09 09:06:20'),
+(9, 'bob@example.com', '[\"ROLE_USER\"]', '$2y$13$N9qo8uLOickgx2ZMRZo5i.ejvY9rEYprQxC.fqgIJ5MfEyu/2h1K.', 'bob', 1, '2025-09-09 09:06:20'),
+(13, 'youpi@gmail.com', '[]', '$2y$13$zmZbSXCvdGDJdiofS9glTulOT0be5.cn7QLWrCV.9JimkQclB7yva', 'youpioeoe', 0, '2025-09-09 12:11:47');
 
 --
 -- Contraintes pour les tables déchargées
@@ -138,13 +154,13 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `is_active`, `create
 -- Contraintes pour la table `events`
 --
 ALTER TABLE `events`
-  ADD CONSTRAINT `FK_5387574A8279080` FOREIGN KEY (`registrations_id`) REFERENCES `registrations` (`id`),
   ADD CONSTRAINT `FK_5387574AB03A8386` FOREIGN KEY (`created_by_id`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `registrations`
 --
 ALTER TABLE `registrations`
+  ADD CONSTRAINT `FK_53DE51E73E5F2F7B` FOREIGN KEY (`event_id_id`) REFERENCES `events` (`id`),
   ADD CONSTRAINT `FK_53DE51E79D86650F` FOREIGN KEY (`user_id_id`) REFERENCES `users` (`id`);
 COMMIT;
 
