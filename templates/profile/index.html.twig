@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/profil.css') }}">
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="auth-container">
+            <h1 class="auth-title">Mon profil</h1>
+            <p style="margin-bottom: 20px;">
+                Bonjour 
+                {% if user.username is defined and user.username is not empty %}
+                    {{ user.username }}
+                {% else %}
+                    {{ user.userIdentifier }}
+                {% endif %}
+                !
+            </p>
+            <div class="button-group">
+                <a href="{{ path('app_create_event') }}" class="profile-button">Créer un événement</a>
+                <a href="{{ path('app_logout') }}" class="auth-button">Se déconnecter</a>
+            </div>
+        </div>
+    </main>
+{% endblock %}

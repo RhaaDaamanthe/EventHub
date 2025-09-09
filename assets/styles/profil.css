@@ -1,0 +1,25 @@
+/* Styles spécifiques pour la page de profil */
+
+.profile-button {
+    background-color: #4CAF50; /* Un vert pour une action positive */
+    color: white;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 25px;
+    margin-right: 10px; /* Espace entre les boutons */
+    transition: background-color 0.3s;
+}
+
+.profile-button:hover {
+    background-color: #45a049;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

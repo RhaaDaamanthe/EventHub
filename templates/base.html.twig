@@ -19,7 +19,7 @@
             <div class="header-right-menu flex">
                 <nav class="navbar-links flex">
                     <a class="nav-link active" href="{{ path('app_home') }}">Accueil</a>
-                    <a class="nav-link" href="#">Profil</a>
+                    <a class="nav-link" href="{% if app.user %}{{ path('app_profile') }}{% else %}{{ path('app_login') }}{% endif %}">Profil</a>
                 </nav>
                 <button class="menu-burger flex">
                     <img src="{{ asset('Images/icones/burger.png') }}" alt="Menu burger" class="burger-icon">
