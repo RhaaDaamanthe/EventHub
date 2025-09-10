@@ -193,12 +193,169 @@ body {
     margin-bottom: 0px;
 }
 
+.event-card-link {
+    text-decoration: none;
+    color: inherit; /* Pour que la couleur du texte reste la même */
+}
+
+/* Vous pouvez aussi ajouter un effet de survol pour l'esthétique */
+.event-card-link:hover .event-card {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Style de la page de détails de l'événement --- */
+
+.event-details-page {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #F9780D;
+}
+
+.event-details-page h1 {
+    text-align: center;
+    color: #F9780D;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.event-image-full {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+.details-section {
+    line-height: 1.6;
+}
+
+.details-section p {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.details-section strong {
+    color: #333;
+}
+
+.event-stats {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.event-stats p {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.participants-list {
+    margin-top: 10px;
+    list-style: disc;
+    padding-left: 20px;
+    color: #555;
+}
+
+.participants-list li {
+    margin-bottom: 5px;
+}
+
+
+/* Style du formulaire de création d'événement */
+.create-event-form {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.create-event-form h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 2rem;
+}
+
+/* Groupes de champs du formulaire */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input[type="text"],
+.form-group input[type="datetime-local"],
+.form-group input[type="number"],
+.form-group input[type="file"],
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="datetime-local"]:focus,
+.form-group input[type="number"]:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+/* Pour le champ checkbox */
+.form-group input[type="checkbox"] {
+    margin-right: 10px;
+}
+
 /* --- Footer --- */
 .footer {
     background-color: #1E1E1E;
     color: #D3D3D3;
     border-top: 2px solid #F9780D;
-    margin-top: 20px;
+    margin-top: 140px;
     padding: 20px;
     font-size: 0.9rem;
     text-align: center;

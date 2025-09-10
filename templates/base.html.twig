@@ -13,9 +13,11 @@
 <header class="page-header">
     {% block top_header_content %}
         <div class="top-header flex">
-            <div class="logo-container">
-                <img src="{{ asset('images/logo.png') }}" alt="HubEvent Logo" class="navbar-logo">
-            </div>
+                <div class="logo-container">
+                    <a href="{{ path('app_home') }}">
+                        <img src="{{ asset('images/logo.png') }}" alt="HubEvent Logo" class="navbar-logo">
+                    </a>
+                </div>
             <div class="header-right-menu flex">
                 <nav class="navbar-links flex">
                     <a class="nav-link active" href="{{ path('app_home') }}">Accueil</a>

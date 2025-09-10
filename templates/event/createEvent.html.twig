@@ -1,20 +1,58 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EventController!{% endblock %}
+{% block title %}Créer un événement{% endblock %}
+
+{% block top_header_content %}
+    {{ parent() }}
+{% endblock %}
+
+{% block bottom_header_content %}
+    {# Ce bloc est laissé vide pour ne pas afficher le contenu #}
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <main class="form-container">
+        <h1>Créer un événement</h1>
+        
+        {# Affiche les messages flash de type 'error' #}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/wamp64/www/symfony_projects/EventHub/src/Controller/EventController.php</code></li>
-        <li>Your template at <code>C:/wamp64/www/symfony_projects/EventHub/templates/event/index.html.twig</code></li>
-    </ul>
-</div>
+        <form action="{{ path('app_create_event') }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Titre :</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description :</label>
+                <textarea id="description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="start_date">Date de début :</label>
+                <input type="datetime-local" id="start_date" name="start_date" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date">Date de fin :</label>
+                <input type="datetime-local" id="end_date" name="end_date" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Lieu :</label>
+                <input type="text" id="location" name="location" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image :</label>
+                <input type="file" id="image" name="image" required>
+            </div>
+            <div class="form-group">
+                <label for="capacity">Capacité :</label>
+                <input type="number" id="capacity" name="capacity" required>
+            </div>
+            <div class="form-group">
+                <label for="is_public">Public :</label>
+                <input type="checkbox" id="is_public" name="is_public" value="1" checked>
+            </div>
+            <button type="submit" class="btn">Créer l'événement</button>
+        </form>
+    </main>
 {% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détails de l'événement{% endblock %}
+
+{% block top_header_content %}
+    {{ parent() }}
+{% endblock %}
+
+{% block bottom_header_content %}
+    {# Ce bloc est laissé vide pour ne pas afficher le contenu #}
+{% endblock %}
+
+{% block body %}
+    <main class="event-details-page">
+        <h1>{{ event.title }}</h1>
+        <img src="{{ asset(event.image) }}" alt="Image de l'événement" class="event-image-full">
+
+        <div class="details-section">
+            <p><strong>Description :</strong> {{ event.description }}</p>
+            <p><strong>Lieu :</strong> {{ event.location }}</p>
+            <p><strong>Date de début :</strong> {{ event.startDate|date('d/m/Y H:i') }}</p>
+            <p><strong>Date de fin :</strong> {{ event.endDate|date('d/m/Y H:i') }}</p>
+            <p><strong>Capacité :</strong> {{ event.capacity }} personnes</p>
+            <p><strong>Créé par :</strong> {{ event.createdBy.username }}</p>
+        </div>
+
+        <div class="join-btn-container mt-4">
+            {% if app.user %}
+                {% if isRegistered %}
+                    <a href="{{ path('app_event_quit', {'id': event.id}) }}" class="btn btn-danger">
+                        Quitter l'événement
+                    </a>
+                {% else %}
+                    <a href="{{ path('app_event_join', {'id': event.id}) }}" class="btn btn-primary">
+                        Rejoindre l'événement
+                    </a>
+                {% endif %}
+            {% else %}
+                <p>
+                    <a href="{{ path('app_login') }}">Connectez-vous</a> pour rejoindre cet événement.
+                </p>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}
