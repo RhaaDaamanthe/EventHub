@@ -12,14 +12,14 @@
 
 {% block body %}
     <main class="form-container">
-        <h1>Créer un événement</h1>
+        <h1 class="h1create-event">Créer un événement</h1>
         
         {# Affiche les messages flash de type 'error' #}
         {% for message in app.flashes('error') %}
             <div class="alert alert-danger">{{ message }}</div>
         {% endfor %}
 
-        <form action="{{ path('app_create_event') }}" method="post" enctype="multipart/form-data">
+        <form class="create-event-form" action="{{ path('app_create_event') }}" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Titre :</label>
                 <input type="text" id="title" name="title" required>
