@@ -2,6 +2,14 @@
 
 {% block title %}Profil{% endblock %}
 
+{% block top_header_content %}
+    {{ parent() }}
+{% endblock %}
+
+{% block bottom_header_content %}
+    {# Ce bloc est laissé vide pour ne pas afficher le contenu #}
+{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('styles/profil.css') }}">
@@ -12,7 +20,7 @@
         <div class="auth-container">
             <h1 class="auth-title">Mon profil</h1>
             <p style="margin-bottom: 20px;">
-                Bonjour 
+                Bienvenue sur ton profil, 
                 {% if user.username is defined and user.username is not empty %}
                     {{ user.username }}
                 {% else %}

@@ -11,35 +11,51 @@
 {% endblock %}
 
 {% block body %}
-    <main class="event-details-page">
-        <h1>{{ event.title }}</h1>
-        <img src="{{ asset(event.image) }}" alt="Image de l'événement" class="event-image-full">
+<main class="event-details-page">
+    <h1>{{ event.title }}</h1>
+    <img src="{{ asset(event.image) }}" alt="Image de l'événement" class="event-image-full">
 
-        <div class="details-section">
-            <p><strong>Description :</strong> {{ event.description }}</p>
-            <p><strong>Lieu :</strong> {{ event.location }}</p>
-            <p><strong>Date de début :</strong> {{ event.startDate|date('d/m/Y H:i') }}</p>
-            <p><strong>Date de fin :</strong> {{ event.endDate|date('d/m/Y H:i') }}</p>
-            <p><strong>Capacité :</strong> {{ event.capacity }} personnes</p>
-            <p><strong>Créé par :</strong> {{ event.createdBy.username }}</p>
-        </div>
+    <div class="details-section">
+        <p><strong>Description :</strong> {{ event.description }}</p>
+        <p><strong>Lieu :</strong> {{ event.location }}</p>
+        <p><strong>Date de début :</strong> {{ event.startDate|date('d/m/Y H:i') }}</p>
+        <p><strong>Date de fin :</strong> {{ event.endDate|date('d/m/Y H:i') }}</p>
+        <p><strong>Créé par :</strong> {{ event.createdBy.username }}</p>
+    </div>
 
-        <div class="join-btn-container mt-4">
-            {% if app.user %}
-                {% if isRegistered %}
-                    <a href="{{ path('app_event_quit', {'id': event.id}) }}" class="btn btn-danger">
-                        Quitter l'événement
-                    </a>
-                {% else %}
-                    <a href="{{ path('app_event_join', {'id': event.id}) }}" class="btn btn-primary">
-                        Rejoindre l'événement
-                    </a>
-                {% endif %}
+    <div class="event-stats mt-3">
+        <p><strong>Inscriptions :</strong> {{ registrations|length }} / {{ event.capacity }}</p>
+
+        {% if registrations is not empty %}
+            <h4>Participants inscrits :</h4>
+            <ul class="participants-list">
+                {% for registration in registrations %}
+                    {# utilise la méthode getter PHP existante getUserId() #}
+                    <li>{{ registration.getUserId().username }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Aucun participant inscrit pour le moment.</p>
+        {% endif %}
+    </div>
+
+    <div class="join-btn-container mt-4">
+        {% if app.user %}
+            {% if isRegistered %}
+                <a href="{{ path('app_event_quit', {'id': event.id}) }}" class="btn btn-danger">Quitter l'événement</a>
             {% else %}
-                <p>
-                    <a href="{{ path('app_login') }}">Connectez-vous</a> pour rejoindre cet événement.
-                </p>
+                <a href="{{ path('app_event_join', {'id': event.id}) }}" class="btn btn-primary">Rejoindre l'événement</a>
             {% endif %}
-        </div>
-    </main>
+        {% else %}
+            <p><a href="{{ path('app_login') }}">Connectez-vous</a> pour rejoindre cet événement.</p>
+        {% endif %}
+
+        {% if app.user and (event.createdBy == app.user or is_granted('ROLE_ADMIN')) %}
+            <form method="post" action="{{ path('app_event_delete', {'id': event.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ?');" style="display:inline-block;">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                <button class="btn btn-danger">Supprimer l'événement</button>
+            </form>
+        {% endif %}
+    </div>
+</main>
 {% endblock %}

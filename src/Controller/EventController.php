@@ -22,12 +22,11 @@ class EventController extends AbstractController
         if ($request->isMethod('POST')) {
             $event = new Events();
 
-            // Récupération des données du formulaire
             $event->setTitle($request->request->get('title'));
             $event->setDescription($request->request->get('description'));
             $event->setCreatedBy($this->getUser());
             $event->setLocation($request->request->get('location'));
-            $event->setCapacity($request->request->get('capacity'));
+            $event->setCapacity((int)$request->request->get('capacity'));
             $event->setStartDate(new \DateTimeImmutable($request->request->get('start_date')));
             $event->setEndDate(new \DateTimeImmutable($request->request->get('end_date')));
             $event->setIsPublic($request->request->has('is_public'));
@@ -76,15 +75,18 @@ class EventController extends AbstractController
         $isRegistered = false;
 
         if ($user) {
-            // Recherche d'une inscription existante (on utilise les noms de propriétés tels que dans ton entité Registrations)
             $registration = $entityManager->getRepository(Registrations::class)->findOneBy([
+                // ici on utilise les noms des propriétés de ton entité Registrations
                 'user_id' => $user,
                 'event_id' => $event,
             ]);
             $isRegistered = $registration !== null;
         }
 
-        $registrations = $event->getRegistrations();
+        // On récupère explicitement les inscriptions via le repository (évite getRegistrations() si mapping cassé)
+        $registrations = $entityManager->getRepository(Registrations::class)->findBy([
+            'event_id' => $event,
+        ]);
 
         return $this->render('event/showEvent.html.twig', [
             'event' => $event,
@@ -104,7 +106,6 @@ class EventController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        // Vérifier si l'utilisateur est déjà inscrit
         $existingRegistration = $entityManager->getRepository(Registrations::class)->findOneBy([
             'user_id' => $user,
             'event_id' => $event,
@@ -115,7 +116,6 @@ class EventController extends AbstractController
             return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
         }
 
-        // Si l'utilisateur n'est pas encore inscrit, on crée une nouvelle inscription
         $registration = new Registrations();
         $registration->setUserId($user);
         $registration->setEventId($event);
@@ -123,7 +123,7 @@ class EventController extends AbstractController
 
         $entityManager->persist($registration);
 
-        // Mettre à jour le compteur si tu l'utilises
+        // Mettre à jour le compteur (optionnel)
         $current = $event->getRegisteredCount() ?? 0;
         $event->setRegisteredCount($current + 1);
         $entityManager->persist($event);
@@ -154,7 +154,6 @@ class EventController extends AbstractController
         if ($registration) {
             $entityManager->remove($registration);
 
-            // Décrémenter le compteur si tu l'utilises
             $current = $event->getRegisteredCount() ?? 0;
             $event->setRegisteredCount(max(0, $current - 1));
             $entityManager->persist($event);
@@ -167,5 +166,26 @@ class EventController extends AbstractController
         }
 
         return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
+    }
+
+    // Supprimer un event
+    #[Route('/event/{id}/delete', name: 'app_event_delete', methods: ['POST'])]
+    public function delete(Request $request, Events $event, EntityManagerInterface $entityManager): Response
+    {
+        $user = $this->getUser();
+        if (!$user || ($event->getCreatedBy() !== $user && !in_array('ROLE_ADMIN', $user->getRoles()))) {
+            $this->addFlash('error', 'Vous n\'avez pas la permission de supprimer cet événement.');
+            return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
+        }
+
+        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($event);
+            $entityManager->flush();
+            $this->addFlash('success', 'L\'événement a été supprimé avec succès.');
+        } else {
+            $this->addFlash('error', 'Jeton CSRF invalide. L\'événement n\'a pas été supprimé.');
+        }
+
+        return $this->redirectToRoute('app_home');
     }
 }

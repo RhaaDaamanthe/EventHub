@@ -30,14 +30,13 @@
         </div>
     {% endblock %}
 
-    {% block bottom_header_content %}
-        <div class="bottom-header">
-            <div class="search-bar-container">
-                <input type="text" placeholder="Rechercher un événement" class="search-input">
-                <button class="search-btn">Rechercher</button>
-            </div>
+{% block bottom_header_content %}
+    <div class="bottom-header">
+        <div class="search-bar-container">
+            <input type="text" placeholder="Rechercher un événement" class="search-input">
         </div>
-    {% endblock %}
+    </div>
+{% endblock %}
 </header>
 
     {% block body %}{% endblock %}
@@ -48,6 +47,6 @@
             <p class="mb-0">© 2025 - HubEvent</p>
         </div>
     </footer>
-    
+<script src="{{ asset('js/searchbar.js') }}"></script>
 </body>
 </html>

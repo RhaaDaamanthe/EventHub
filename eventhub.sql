@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 09 sep. 2025 à 14:20
+-- Généré le : jeu. 11 sep. 2025 à 09:51
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -52,27 +52,27 @@ DROP TABLE IF EXISTS `events`;
 CREATE TABLE IF NOT EXISTS `events` (
   `id` int NOT NULL AUTO_INCREMENT,
   `created_by_id` int DEFAULT NULL,
-  `title` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `start_date` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `end_date` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
-  `location` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `location` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `capacity` int NOT NULL,
   `registered_count` int DEFAULT NULL,
   `is_public` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_5387574AB03A8386` (`created_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `events`
 --
 
 INSERT INTO `events` (`id`, `created_by_id`, `title`, `description`, `start_date`, `end_date`, `location`, `image`, `capacity`, `registered_count`, `is_public`) VALUES
-(10, 7, 'Coupe du monde de Fortnite ', 'Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum quemquam ad hanc accusationem fuisse, cui, utrum vellet, liceret, nec, cum descendisset, quicquam habiturum spei fuisse, nisi alicuius intolerabili libidine et nimis acerbo odio niteretur. Sed ego Atratino, humanissimo atque optimo adulescenti meo necessario, ignosco, qui habet excusationem vel pietatis vel necessitatis vel aetatis. Si voluit accusare, pietati tribuo, si iussus est, necessitati, si speravit aliquid, pueritiae. Ceteris non modo nihil ignoscendum, sed etiam acriter est resistendum', '2025-10-11 18:30:00', '2025-10-15 21:00:00', 'Arthur Ashe Stadium, New York', 'wc-ftn.jpg', 3000, 0, 1),
-(11, 8, 'Crêpes party', 'Etenim si attendere diligenter, existimare vere de omni hac causa volueritis, sic constituetis, iudices, nec descensurum quemquam ad hanc accusationem fuisse, cui, utrum vellet, liceret, nec,', '2025-11-26 19:00:00', '2025-11-26 23:00:00', 'Chez moi, Bellignat', 'crepes-party.png', 6, 0, 1),
-(12, 9, 'Balade au Crêt de Chalam', 'Pour tout le monde, même les débutants !', '2025-10-15 10:00:00', '2025-10-15 16:42:31', 'Crêt de Chalam, Jura', 'chalam.jpg', 15, 0, 1);
+(13, 2, 'dfesgdsq', 'sdfdsqsd', '2025-09-20 09:01:00', '2025-09-20 09:01:00', 'sdfgh', '/uploads/events/crepes-party-68c273d11873b.jpg', 45, 2, 1),
+(14, 2, 'lspalspalpsa', 'kjhgghj', '2025-10-01 09:07:00', '2025-09-25 13:02:00', 'dddddddd', '/uploads/events/jetski-68c2740204fa7.jpg', 47, 0, 1),
+(15, 2, 'Balade', 'zertfyghjuytrezqazertyuyhtrfdesertytrtr\'ertefred', '2025-09-25 14:18:00', '2025-10-09 15:18:00', 'Chez', '/uploads/events/chalam-68c285de8e567.jpg', 7987, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -83,9 +83,9 @@ INSERT INTO `events` (`id`, `created_by_id`, `title`, `description`, `start_date
 DROP TABLE IF EXISTS `messenger_messages`;
 CREATE TABLE IF NOT EXISTS `messenger_messages` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `headers` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue_name` varchar(190) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `headers` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `queue_name` varchar(190) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `available_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   `delivered_at` datetime DEFAULT NULL COMMENT '(DC2Type:datetime_immutable)',
@@ -110,7 +110,15 @@ CREATE TABLE IF NOT EXISTS `registrations` (
   PRIMARY KEY (`id`),
   KEY `IDX_53DE51E79D86650F` (`user_id_id`),
   KEY `IDX_53DE51E73E5F2F7B` (`event_id_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `registrations`
+--
+
+INSERT INTO `registrations` (`id`, `user_id_id`, `event_id_id`, `registered_at`) VALUES
+(2, 5, 13, '2025-09-11 07:32:51'),
+(8, 2, 13, '2025-09-11 09:09:08');
 
 -- --------------------------------------------------------
 
@@ -121,10 +129,10 @@ CREATE TABLE IF NOT EXISTS `registrations` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `is_active` tinyint(1) NOT NULL,
   `created_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`id`),

@@ -50,7 +50,7 @@ class Events
     /**
      * @var Collection<int, Registrations>
      */
-    #[ORM\OneToMany(mappedBy: 'event', targetEntity: Registrations::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'event_id', targetEntity: Registrations::class, orphanRemoval: true)]
     private Collection $registrations;
 
     public function __construct()
