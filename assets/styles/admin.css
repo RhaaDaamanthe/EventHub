@@ -1,0 +1,57 @@
+/* Style pour la page d'administration */
+.admin-dashboard {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.admin-dashboard h1 {
+    text-align: center;
+    color: #F9780D;
+    margin-bottom: 40px;
+}
+
+.admin-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+}
+
+.admin-section h2 {
+    color: #333;
+    border-bottom: 2px solid #F9780D;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.admin-list {
+    list-style: none;
+    padding: 0;
+}
+
+.admin-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.admin-list li:last-child {
+    border-bottom: none;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-actions .btn {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+}

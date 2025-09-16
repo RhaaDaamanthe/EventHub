@@ -1,37 +1,83 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil{% endblock %}
+{% block title %}Profil
+{% endblock %}
 
 {% block top_header_content %}
-    {{ parent() }}
+	{{ parent() }}
 {% endblock %}
 
 {% block bottom_header_content %}
-    {# Ce bloc est laissé vide pour ne pas afficher le contenu #}
+	{# Ce bloc est laissé vide pour ne pas afficher le contenu #}
 {% endblock %}
 
 {% block stylesheets %}
-    {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('styles/profil.css') }}">
+	<link rel="stylesheet" href="{{ asset('styles/profil.css') }}">
 {% endblock %}
 
 {% block body %}
-    <main>
-        <div class="auth-container">
-            <h1 class="auth-title">Mon profil</h1>
-            <p style="margin-bottom: 20px;">
-                Bienvenue sur ton profil, 
-                {% if user.username is defined and user.username is not empty %}
-                    {{ user.username }}
-                {% else %}
-                    {{ user.userIdentifier }}
-                {% endif %}
-                !
-            </p>
-            <div class="button-group">
-                <a href="{{ path('app_create_event') }}" class="profile-button">Créer un événement</a>
-                <a href="{{ path('app_logout') }}" class="auth-button">Se déconnecter</a>
-            </div>
-        </div>
-    </main>
+	<main>
+		<div class="auth-container">
+			<h1 class="auth-title">Mon profil</h1>
+			<p style="margin-bottom: 20px;">
+				Bienvenue sur ton profil,
+				{% if user.username is defined and user.username is not empty %}
+					{{ user.username }}
+				{% else %}
+					{{ user.userIdentifier }}
+				{% endif %}
+				!
+			</p>
+			<div class="button-group">
+				<a href="{{ path('app_create_event') }}" class="profile-button">Créer un événement</a>
+				<a href="{{ path('app_logout') }}" class="auth-button">Se déconnecter</a>
+			</div>
+		</div>
+
+		<div class="events-section">
+			<h2>Mes événements créés</h2>
+			{% if createdEvents is not empty %}
+				<ul>
+					{% for event in createdEvents %}
+						<li>
+							<span>{{ event.title }}</span>
+							({{ event.startDate|date('d/m/Y H:i') }})
+
+							<div class="event-actions">
+								<a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-info btn-sm">Voir</a>
+								<form method="post" action="{{ path('app_event_delete', {'id': event.id}) }}" style="display:inline-block" onsubmit="return confirm('Supprimer cet événement ?');">
+									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+									<button class="btn btn-danger btn-sm">
+										<img src="{{ asset('images/icones/bin.svg') }}" alt="Supprimer" class="bin-icon">
+									</button>
+								</form>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<p>Vous n'avez encore créé aucun événement.</p>
+			{% endif %}
+		</div>
+
+		<div class="events-section">
+			<h2>Mes inscriptions</h2>
+			{% if joinedEvents is not empty %}
+				<ul>
+					{% for event in joinedEvents %}
+						<li>
+							<span>{{ event.title }}</span>
+							({{ event.startDate|date('d/m/Y H:i') }})
+							<div class="event-actions">
+								<a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-info btn-sm">Voir</a>
+							</div>
+							<a href="{{ path('app_event_quit', {'id': event.id}) }}" class="btn btn-warning btn-sm">Quitter</a>
+						</li>
+					{% endfor %}
+				</ul>
+			{% else %}
+				<p>Vous n'êtes inscrit à aucun événement pour le moment.</p>
+			{% endif %}
+		</div>
+	</main>
 {% endblock %}

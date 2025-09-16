@@ -1,8 +1,10 @@
 <?php
+// src/Controller/UserProfileController.php
 
 namespace App\Controller;
 
 use App\Entity\Events;
+use App\Entity\Users;
 use App\Entity\Registrations;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -10,28 +12,26 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-class ProfileController extends AbstractController
+class UserProfileController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile')]
-    #[IsGranted('ROLE_USER')]
-    public function index(EntityManagerInterface $entityManager): Response
+    #[Route('/user/profile/{id}', name: 'app_user_profile')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function show(Users $user, EntityManagerInterface $entityManager): Response
     {
-        $user = $this->getUser();
-
-        // Événements créés par l'utilisateur
+        // 1. Récupérer les événements créés par l'utilisateur
         $createdEvents = $entityManager->getRepository(Events::class)
             ->findBy(['created_by' => $user]);
 
-        // Événements où l'utilisateur est inscrit
+        // 2. Récupérer les événements rejoints par l'utilisateur
         $registrations = $entityManager->getRepository(Registrations::class)
             ->findBy(['user_id' => $user]);
 
         $joinedEvents = [];
         foreach ($registrations as $registration) {
-            $joinedEvents[] = $registration->getEventId(); // méthode dans ton entité Registrations
+            $joinedEvents[] = $registration->getEventId();
         }
 
-        return $this->render('profile/index.html.twig', [
+        return $this->render('profile/userProfile.html.twig', [
             'user' => $user,
             'createdEvents' => $createdEvents,
             'joinedEvents' => $joinedEvents,

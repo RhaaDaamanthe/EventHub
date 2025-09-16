@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil de {{ user.username }}{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/profil.css') }}">
+{% endblock %}
+
+{% block top_header_content %}
+    {{ parent() }}
+{% endblock %}
+
+{% block bottom_header_content %}
+    {# Ce bloc est laissé vide pour ne pas afficher le contenu #}
+{% endblock %}
+
+{% block body %}
+    <main>
+        <div class="profile-container">
+            {# Section pseudo et informations - Le style pour cette section est dans profil.css #}
+            <div class="profile-info-section">
+                <h1 class="profile-username">{{ user.username }}</h1>
+                
+                {# Informations supplémentaires visibles uniquement par les admins #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="user-details-table">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td><i class="fas fa-envelope"></i> Email</td>
+                                    <td>{{ user.email }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-calendar-alt"></i> Date d'inscription</td>
+                                    <td>{{ user.createdAt|date('d/m/Y') }}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-info-circle"></i> Statut</td>
+                                    <td>
+                                        {% if user.isActive %}
+                                            <span class="status active">Actif</span>
+                                        {% else %}
+                                            <span class="status inactive">Inactif</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fas fa-user-shield"></i> Rôles</td>
+                                    <td>{{ user.roles|join(', ') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+            </div>
+
+            {# Section des événements créés #}
+            <div class="events-section">
+                <h2>Événements créés</h2>
+                {% if createdEvents is not empty %}
+                    <ul class="event-list">
+                        					{% for event in createdEvents %}
+						<li>
+							<span>{{ event.title }}</span>
+							({{ event.startDate|date('d/m/Y H:i') }})
+
+							<div class="event-actions">
+								<a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-info btn-sm">Voir</a>
+							</div>
+						</li>
+					{% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Cet utilisateur n'a pas encore créé d'événement.</p>
+                {% endif %}
+            </div>
+
+            {# Section des événements rejoints #}
+            <div class="events-section">
+                <h2>Événements rejoints</h2>
+                {% if joinedEvents is not empty %}
+                    <ul class="event-list">
+                        {% for event in joinedEvents %}
+                            <li>
+                                <span>{{ event.title }}</span> ({{ event.startDate|date('d/m/Y H:i') }})
+                                <div class="event-actions">
+								<a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-info btn-sm">Voir</a>
+							</div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Cet utilisateur n'a rejoint aucun événement.</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+{% endblock %}

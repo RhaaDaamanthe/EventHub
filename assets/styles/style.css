@@ -207,7 +207,7 @@ body {
 /* --- Style de la page de détails de l'événement --- */
 
 .event-details-page {
-    max-width: 800px;
+    max-width: 400px;
     margin: 40px auto;
     padding: 20px;
     background-color: #FFFFFF;
@@ -234,6 +234,7 @@ body {
 
 .details-section {
     line-height: 1.6;
+    word-break: break-word;
 }
 
 .details-section p {
@@ -271,6 +272,65 @@ body {
     margin-bottom: 5px;
 }
 
+/* Conteneur pour centrer les boutons d'action */
+.admin-actions-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem; /* Marge pour l'espacement */
+}
+
+/* Styles pour les icônes de la poubelle et de l'édition */
+.bin-icon,
+.edit-icon,
+.return-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.bin-icon:hover,
+.edit-icon:hover,
+.return-icon:hover {
+    transform: scale(1.1);
+}
+
+.square-btn {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: none;
+    transition: all 0.2s ease-in-out;
+    text-decoration: none;
+}
+
+.square-btn-red {
+    background-color: #dc3545;
+}
+
+.square-btn-red:hover {
+    background-color: #c82333;
+}
+
+.square-btn-yellow {
+    background-color: #ffc107;
+}
+
+.square-btn-yellow:hover {
+    background-color: #e0a800;
+}
+
+.square-btn-gray {
+    background-color: #6c757d;
+}
+
+.square-btn-gray:hover {
+    background-color: #5a6268;
+}
 
 /* Style du formulaire de création d'événement */
 .h1create-event {

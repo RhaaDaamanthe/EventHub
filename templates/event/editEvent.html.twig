@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'événement{% endblock %}
+
+{% block top_header_content %}
+    {{ parent() }}
+{% endblock %}
+
+{% block bottom_header_content %}
+    {# Ce bloc est laissé vide pour ne pas afficher le contenu #}
+{% endblock %}
+
+{% block body %}
+    <main class="form-container">
+        <h1 class="h1create-event">Modifier l'événement</h1>
+        
+        {# Affiche les messages flash #}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+
+        <form class="create-event-form" action="{{ path('app_event_edit', {'id': event.id}) }}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Titre :</label>
+                <input type="text" id="title" name="title" value="{{ event.title }}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description :</label>
+                <textarea id="description" name="description" required>{{ event.description }}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="start_date">Date de début :</label>
+                <input type="datetime-local" id="start_date" name="start_date" value="{{ event.startDate|date('Y-m-d H:i') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="end_date">Date de fin :</label>
+                <input type="datetime-local" id="end_date" name="end_date" value="{{ event.endDate|date('Y-m-d H:i') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="location">Lieu :</label>
+                <input type="text" id="location" name="location" value="{{ event.location }}" required>
+            </div>
+            <div class="form-group">
+                <label for="image">Image actuelle :</label>
+                <img src="{{ asset(event.image) }}" alt="Image actuelle" style="max-width: 200px; display: block; margin-bottom: 10px;">
+                <label for="image">Nouvelle image (facultatif) :</label>
+                <input type="file" id="image" name="image">
+            </div>
+            <div class="form-group">
+                <label for="capacity">Capacité :</label>
+                <input type="number" id="capacity" name="capacity" value="{{ event.capacity }}" required>
+            </div>
+            <div class="form-group">
+                <label for="is_public">Public :</label>
+                <input type="checkbox" id="is_public" name="is_public" value="1" {% if event.isPublic %}checked{% endif %}>
+            </div>
+            <button type="submit" class="btn">Mettre à jour l'événement</button>
+        </form>
+    </main>
+{% endblock %}

@@ -2,6 +2,10 @@
 
 {% block title %}Détails de l'événement{% endblock %}
 
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('styles/style.css') }}">
+{% endblock %}
+
 {% block top_header_content %}
     {{ parent() }}
 {% endblock %}
@@ -30,8 +34,15 @@
             <h4>Participants inscrits :</h4>
             <ul class="participants-list">
                 {% for registration in registrations %}
-                    {# utilise la méthode getter PHP existante getUserId() #}
-                    <li>{{ registration.getUserId().username }}</li>
+                    <li>
+                        {{ registration.getUserId().username }}
+                        {# 👇 Le code à vérifier attentivement. Utilisation de la notation simplifiée #}
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('app_user_profile', {'id': registration.userId.id}) }}" class="btn-voir-profil ms-2">
+                            Voir
+                        </a>
+                    {% endif %}
+                    </li>
                 {% endfor %}
             </ul>
         {% else %}
@@ -39,23 +50,33 @@
         {% endif %}
     </div>
 
-    <div class="join-btn-container mt-4">
-        {% if app.user %}
-            {% if isRegistered %}
-                <a href="{{ path('app_event_quit', {'id': event.id}) }}" class="btn btn-danger">Quitter l'événement</a>
-            {% else %}
-                <a href="{{ path('app_event_join', {'id': event.id}) }}" class="btn btn-primary">Rejoindre l'événement</a>
-            {% endif %}
+<div class="join-btn-container mt-4">
+    {% if app.user %}
+        {% if isRegistered %}
+            <a href="{{ path('app_event_quit', {'id': event.id}) }}" class="btn btn-danger">Quitter l'événement</a>
         {% else %}
-            <p><a href="{{ path('app_login') }}">Connectez-vous</a> pour rejoindre cet événement.</p>
+            <a href="{{ path('app_event_join', {'id': event.id}) }}" class="btn btn-primary">Rejoindre l'événement</a>
         {% endif %}
+    {% else %}
+        <p><a href="{{ path('app_login') }}">Connectez-vous</a> pour rejoindre cet événement.</p>
+    {% endif %}
 
-        {% if app.user and (event.createdBy == app.user or is_granted('ROLE_ADMIN')) %}
-            <form method="post" action="{{ path('app_event_delete', {'id': event.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ?');" style="display:inline-block;">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
-                <button class="btn btn-danger">Supprimer l'événement</button>
-            </form>
-        {% endif %}
+{% if app.user and (event.createdBy == app.user or is_granted('ROLE_ADMIN')) %}
+    <div class="admin-actions-container">
+        <a href="{{ path('app_home') }}" class="square-btn square-btn-gray me-2">
+            <img src="{{ asset('images/icones/return.svg') }}" alt="Retour" class="return-icon">
+        </a>
+        <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="square-btn square-btn-yellow me-2">
+            <img src="{{ asset('images/icones/edit.svg') }}" alt="Modifier" class="edit-icon">
+        </a>
+        <form method="post" action="{{ path('app_event_delete', {'id': event.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ?');" style="display:inline-block;">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+            <button class="square-btn square-btn-red">
+                <img src="{{ asset('images/icones/bin.svg') }}" alt="Supprimer" class="bin-icon">
+            </button>
+        </form>
     </div>
+{% endif %}
+</div>
 </main>
 {% endblock %}

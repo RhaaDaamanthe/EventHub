@@ -1,25 +1,254 @@
-/* Styles spécifiques pour la page de profil */
+/* Styles généraux de la page de profil */
+body {
+    background-color: #f4f4f9;
+    font-family: Poppins, sans-serif;
+    color: #333;
+}
 
-.profile-button {
-    background-color: #4CAF50; /* Un vert pour une action positive */
-    color: white;
-    font-size: 1.2rem;
+.auth-container {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.auth-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #F9780D;
+    margin-bottom: 10px;
+}
+
+.auth-container p {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 25px;
+}
+
+/* Groupe de boutons */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Augmente l'espace entre les boutons */
+    margin-top: 20px;
+    margin-bottom: 40px; /* Ajoute de l'espace sous les boutons */
+}
+
+/* Styles pour les deux boutons "Créer" et "Se déconnecter" */
+.profile-button,
+.auth-button {
+    text-decoration: none;
     font-weight: bold;
-    padding: 12px;
-    border: none;
+    padding: 12px 25px;
     border-radius: 8px;
     cursor: pointer;
-    margin-top: 25px;
-    margin-right: 10px; /* Espace entre les boutons */
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+/* Styles spécifiques au bouton "Créer un événement" */
+.profile-button {
+    background-color: #F9780D;
+    color: white;
 }
 
 .profile-button:hover {
     background-color: #45a049;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px); /* Effet de levage subtil */
 }
 
-.button-group {
+/* Styles spécifiques au bouton "Se déconnecter" */
+.auth-button {
+    background-color: transparent;
+    color: #555;
+    border-color: #ccc;
+}
+
+.auth-button:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* ====== Sections événements ====== */
+.events-section {
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 90%;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.events-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #000; /* Titres en noir */
+    border-bottom: 2px solid #444;
+    padding-bottom: 8px;
+}
+
+.events-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.events-section li {
     display: flex;
-    justify-content: center;
-    margin-top: 20px;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #444;
+}
+
+.events-section li:last-child {
+    border-bottom: none;
+}
+
+/* Liens vers les événements */
+.events-section span {
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+    max-width: 70px;
+}
+
+/* Actions (boutons) */
+.event-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.event-actions .btn {
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    color: white; /* Pour que le texte soit lisible sur le bouton */
+    border: none;
+}
+
+.participants-list .btn-voir-profil {
+    background-color: #FFC107 !important;
+    border-color: #FFC107 !important;
+    color: #212529 !important; /* Couleur du texte pour qu'il reste lisible */
+    padding: 0.25rem 0.5rem; /* Réduire la taille du bouton */
+    font-size: 0.875rem; /* Rendre la police plus petite */
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+
+.participants-list .btn-voir-profil:hover {
+    background-color: #e0a800 !important;
+    border-color: #e0a800 !important;
+}
+/* Bouton 'Voir' (correspondant au 'btn-info' de Bootstrap) */
+.btn-info {
+    background-color: #FFC107;
+}
+
+.bin-icon {
+    width: 20px;
+    height: auto;
+    /* margin: 2px; */
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-warning {
+    background-color: #dc3545;
+    width: 70px;
+    border: none;
+    color: #fff;
+    padding: 5px 10px;
+    font-size: 0.85rem;
+    border-radius: 6px;
+    text-transform: capitalize;
+}
+
+/* userProfile */
+
+/* Style pour l'en-tête du pseudo */
+.profile-username {
+    font-size: 2.5rem;
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    border: 2px solid #F9780D; /* Bordure orange */
+    display: inline-block; /* Pour que la bordure ne prenne pas toute la largeur */
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Ajustements pour la section d'informations */
+.profile-info-section {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Style pour le tableau d'informations de l'admin */
+.user-details-table {
+    margin-top: 25px;
+}
+
+.user-details-table table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.user-details-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.user-details-table td:last-child {
+    border-right: none;
+}
+
+.user-details-table tr:last-child td {
+    border-bottom: none;
+}
+
+.user-details-table tr td:first-child {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    width: 30%; /* Largeur pour la colonne des étiquettes */
+}
+
+/* Styles pour les icônes */
+.user-details-table i {
+    color: #F9780D; /* Couleur orange des icônes */
+    margin-right: 8px;
+    font-size: 1.1rem;
+}
+
+/* Styles pour le statut Actif/Inactif */
+.status {
+    padding: 4px 8px;
+    border-radius: 5px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.status.active {
+    background-color: #28a745; /* Vert */
+    color: white;
+}
+
+.status.inactive {
+    background-color: #dc3545; /* Rouge */
+    color: white;
 }
