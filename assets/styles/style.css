@@ -33,13 +33,6 @@ main {
     height: 70px;
 }
 
-/* ------------------------------------- */
-/* --- Styles de la navigation MOBILE --- */
-/* ------------------------------------- */
-
-.header-right-menu {
-    position: relative;
-}
 
 /* ------------------------------------- */
 /* --- Styles de la navigation MOBILE --- */
@@ -125,6 +118,17 @@ main {
     width: 200px;
 }
 
+/* Styles pour la croix de fermeture */
+.close-menu {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: #F9780D;
+}
+
 /* Connexion : bouton sobre */
 .btn-login {
     background-color: transparent;
@@ -132,33 +136,42 @@ main {
     color: #F9780D;
 }
 
-.btn-login:hover {
-    background-color: #F9780D;
-    color: #fff;
-}
-
-/* Inscription : bouton orange principal */
 .btn-register {
     background-color: #F9780D;
     color: #fff;
     border: 2px solid #F9780D;
 }
 
-.btn-register:hover {
-    background-color: #F28C38;
-    border-color: #F28C38;
-}
-
-/* Déconnexion : bouton rouge */
 .btn-logout {
     background-color: #E74C3C;
     color: #fff;
     border: 2px solid #E74C3C;
 }
 
-.btn-logout:hover {
-    background-color: #c0392b;
-    border-color: #c0392b;
+.navbar-links .nav-link.admin-link {
+    color: #FFD700;
+    font-weight: bold;
+}
+.navbar-links .nav-link.create-event-link {
+    color: #12db12;
+    font-weight: bold;
+}
+
+.navbar-links-desktop {
+    display: none;
+}
+
+.navbar-links .logout-link {
+    background-color: #E74C3C;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 10px 20px;
+    text-align: center;
+    display: block;
+    width: fit-content;
+    margin: 15px auto 0;
+    transition: background-color 0.3s ease;
 }
 
 /* --- Barre de recherche --- */
@@ -564,4 +577,44 @@ main {
     text-align: center;
 }
 
-/* Reponsive desktop */
+@media (min-width: 768px) {
+    /* Cache le menu burger sur PC */
+    .menu-burger, .close-menu {
+        display: none;
+    }
+
+    /* Cache le menu mobile (le plein écran) sur PC */
+    .navbar-links {
+        display: none;
+    }
+
+    /* Affiche le menu desktop sur PC */
+    .navbar-links-desktop {
+        display: flex;
+        position: static;
+        flex-direction: row;
+        gap: 20px; /* Ajoute un espace entre les liens */
+        align-items: center;
+        width: auto;
+        height: auto;
+        padding: 0;
+        background-color: transparent;
+    }
+
+    /* Styles des liens du menu desktop */
+    .navbar-links-desktop .nav-link {
+        font-size: 1rem;
+        color: #F9780D;
+        text-decoration: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* Ajuste les styles du conteneur parent */
+    .header-right-menu {
+        position: static;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+}

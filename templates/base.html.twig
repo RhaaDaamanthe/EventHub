@@ -19,28 +19,44 @@
                     </a>
                 </div>
             <div class="header-right-menu flex">
-                <div class="navbar-links" id="navbarLinks">
-    <a href="{{ path('app_home') }}" class="nav-link">Accueil</a>
-
-    {% if app.user %}
-        <a href="{{ path('app_profile') }}" class="nav-link">Profil</a>
-
-        {# Lien visible uniquement pour les admins #}
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_admin') }}" class="nav-link">Administration</a>
+    {# Menu pour les écrans mobiles #}
+    <div class="navbar-links" id="navbarLinks">
+        <button class="close-menu">×</button>
+        <a href="{{ path('app_home') }}" class="nav-link">Accueil</a>
+        {% if app.user %}
+            <a href="{{ path('app_profile') }}" class="nav-link">Profil</a>
+            <a class="nav-link create-event-link" href="{{ path('app_create_event') }}">Créer un événement</a>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_admin') }}" class="nav-link admin-link">Administration</a>
+            {% endif %}
+            <a href="{{ path('app_logout') }}" class="nav-link logout-link">Se déconnecter</a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="nav-link btn-login">Connexion</a>
+            <a href="{{ path('app_register') }}" class="nav-link btn-register">Inscription</a>
         {% endif %}
+    </div>
 
-        <a href="{{ path('app_logout') }}" class="btn-logout">Se déconnecter</a>
-    {% else %}
-        <a href="{{ path('app_login') }}" class="btn-login">Connexion</a>
-        <a href="{{ path('app_register') }}" class="btn-register">Inscription</a>
-    {% endif %}
+    {# Menu pour les grands écrans (PC) #}
+    <div class="navbar-links-desktop">
+        <a href="{{ path('app_home') }}" class="nav-link">Accueil</a>
+        {% if app.user %}
+            <a href="{{ path('app_profile') }}" class="nav-link">Profil</a>
+            <a class="nav-link create-event-link" href="{{ path('app_create_event') }}">Créer un événement</a>
+
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_admin') }}" class="nav-link admin-link">Administration</a>
+            {% endif %}
+            <a href="{{ path('app_logout') }}" class="nav-link logout-link">Se déconnecter</a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="nav-link btn-login">Connexion</a>
+            <a href="{{ path('app_register') }}" class="nav-link btn-register">Inscription</a>
+        {% endif %}
+    </div>
+
+    <button class="menu-burger flex">
+        <img src="{{ asset('Images/icones/burger.png') }}" alt="Menu burger" class="burger-icon">
+    </button>
 </div>
-
-                <button class="menu-burger flex">
-                    <img src="{{ asset('Images/icones/burger.png') }}" alt="Menu burger" class="burger-icon">
-                </button>
-            </div>
         </div>
     {% endblock %}
 
@@ -65,11 +81,16 @@
     document.addEventListener('DOMContentLoaded', function() {
         const burgerBtn = document.querySelector('.menu-burger');
         const navLinks = document.querySelector('.navbar-links');
+        const closeBtn = document.querySelector('.close-menu'); // Sélectionnez le nouveau bouton
 
-        if (burgerBtn && navLinks) {
+        if (burgerBtn && navLinks && closeBtn) {
+            // Ouvre le menu
             burgerBtn.addEventListener('click', () => {
-                navLinks.classList.toggle('active');
-                burgerBtn.classList.toggle('open');
+                navLinks.classList.add('active');
+            });
+            // Ferme le menu
+            closeBtn.addEventListener('click', () => {
+                navLinks.classList.remove('active');
             });
         }
     });
