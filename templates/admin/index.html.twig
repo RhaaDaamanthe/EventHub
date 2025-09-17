@@ -23,7 +23,10 @@
 
     <div class="admin-section">
         <h2>Utilisateurs ({{ users|length }})</h2>
-        <ul class="admin-list">
+        {# Bouton pour basculer la liste des utilisateurs #}
+        <button id="toggle-users" class="btn btn-secondary btn-sm mb-3">Afficher la liste</button>
+        {# La liste des utilisateurs, avec l'id nécessaire au JavaScript #}
+        <ul class="admin-list" id="user-list">
             {% for user in users %}
                 <li>
                     <span>{{ user.username }} ({{ user.email }})</span>
@@ -37,7 +40,10 @@
 
     <div class="admin-section">
         <h2>Événements ({{ events|length }})</h2>
-        <ul class="admin-list">
+        {# Bouton pour basculer la liste des événements #}
+        <button id="toggle-events" class="btn btn-secondary btn-sm mb-3">Afficher la liste</button>
+        {# La liste des événements, avec l'id nécessaire au JavaScript #}
+        <ul class="admin-list" id="event-list">
             {% for event in events %}
                 <li>
                     <span>{{ event.title }}</span>
@@ -54,4 +60,9 @@
         </ul>
     </div>
 </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/admin.js') }}"></script>
 {% endblock %}

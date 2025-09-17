@@ -40,3 +40,8 @@
         </div>
     </main>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/searchbar.js') }}"></script>
+{% endblock %}

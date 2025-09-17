@@ -15,7 +15,10 @@
 {% endblock %}
 
 {% block body %}
-<main class="event-details-page">
+    {# Conteneur pour la notification #}
+    <div id="notification-container"></div>
+
+    <main class="event-details-page">   
     <h1>{{ event.title }}</h1>
     <img src="{{ asset(event.image) }}" alt="Image de l'événement" class="event-image-full">
 
@@ -79,4 +82,38 @@
 {% endif %}
 </div>
 </main>
+    {% block javascripts %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const notificationContainer = document.getElementById('notification-container');
+                const flashes = {{ app.flashes|json_encode|raw }};
+
+                for (let type in flashes) {
+                    flashes[type].forEach(message => {
+                        const notification = document.createElement('div');
+                        notification.classList.add('notification', type);
+                        notification.textContent = message;
+                        notificationContainer.appendChild(notification);
+
+                        // Force le navigateur à appliquer les styles initiaux
+                        void notification.offsetWidth;
+
+                        // Ajoute la classe 'show' pour déclencher la transition d'entrée
+                        notification.classList.add('show');
+
+                        // Fait disparaître la notification après 3 secondes
+                        setTimeout(() => {
+                            notification.classList.remove('show');
+                            notification.classList.add('hide');
+
+                            // Supprime l'élément après la fin de la transition de disparition
+                            notification.addEventListener('transitionend', () => {
+                                notification.remove();
+                            });
+                        }, 3000);
+                    });
+                }
+            });
+        </script>
+    {% endblock %}
 {% endblock %}
