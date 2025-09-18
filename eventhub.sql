@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 11 sep. 2025 à 09:51
+-- Généré le : jeu. 18 sep. 2025 à 14:38
 -- Version du serveur : 9.1.0
 -- Version de PHP : 8.3.14
 
@@ -63,16 +63,27 @@ CREATE TABLE IF NOT EXISTS `events` (
   `is_public` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_5387574AB03A8386` (`created_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `events`
 --
 
 INSERT INTO `events` (`id`, `created_by_id`, `title`, `description`, `start_date`, `end_date`, `location`, `image`, `capacity`, `registered_count`, `is_public`) VALUES
-(13, 2, 'dfesgdsq', 'sdfdsqsd', '2025-09-20 09:01:00', '2025-09-20 09:01:00', 'sdfgh', '/uploads/events/crepes-party-68c273d11873b.jpg', 45, 2, 1),
-(14, 2, 'lspalspalpsa', 'kjhgghj', '2025-10-01 09:07:00', '2025-09-25 13:02:00', 'dddddddd', '/uploads/events/jetski-68c2740204fa7.jpg', 47, 0, 1),
-(15, 2, 'Balade', 'zertfyghjuytrezqazertyuyhtrfdesertytrtr\'ertefred', '2025-09-25 14:18:00', '2025-10-09 15:18:00', 'Chez', '/uploads/events/chalam-68c285de8e567.jpg', 7987, 0, 1);
+(16, 2, 'Première coupe du monde Fortnite', 'pokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpkopokfzekopfkokopzokpfokpko', '2025-10-01 10:45:00', '2025-10-06 10:45:00', 'Arthur Ashe Stadium, New York', '/uploads/events/wc-ftn-68c13aa4139e4.jpg', 3000, 1, 1),
+(18, 2, 'Balade au Crêt de Chalam', 'Pour tout le monde, même les débutants !', '2025-10-09 11:17:00', '2025-10-10 11:17:00', 'Crêt de Chalam, Jura', '/uploads/events/chalam-68c14245b0068.jpg', 20, 0, 1),
+(19, 2, 'Crêpes party', 'miaaaam', '2025-09-18 11:20:00', '2025-09-18 17:20:00', 'Chez moi, Bellignat', '/uploads/events/crepes-party-68c142e449987.jpg', 6, 0, 1),
+(23, 5, 'dfscws', 'ffqfqfqf', '2025-09-06 15:52:00', '2025-09-24 15:52:00', 'ddd', '/uploads/events/jetski-68c81a33d7d1f.jpg', 6, 1, 1),
+(34, 8, 'Symfony Meetup Paris', 'Rencontre entre développeurs Symfony pour échanger sur les bonnes pratiques et nouveautés du framework.', '2025-10-12 18:30:00', '2025-10-12 21:30:00', 'Paris, La Défense', '/uploads/events/meetup-symfony-thecamp-68cc023eaac2f.jpg', 50, 0, 1),
+(35, 8, 'Hackathon Lyon', '48h pour coder en équipe et créer des projets innovants autour du web et de l’IA.', '2025-11-07 09:00:00', '2025-11-09 18:00:00', 'Lyon, H7', '/uploads/events/1699869231041-68cc02fe1e470.jpg', 120, 0, 1),
+(36, 8, 'Soirée Jeux Vidéo', 'Tournoi e-sport avec pizzas, boissons et lots à gagner.', '2025-12-05 20:00:00', '2025-12-06 02:00:00', 'Marseille, Gaming Arena', '/uploads/events/jv-68cc026251724.jpg', 80, 0, 1),
+(37, 8, 'Atelier ReactJS', 'Atelier pratique pour découvrir les bases de ReactJS et créer une première application.', '2025-10-20 14:00:00', '2025-10-20 17:00:00', 'Bordeaux, La Halle Digitale', '/uploads/events/js-68cc026cb0c6f.jpg', 40, 0, 1),
+(38, 8, 'Conférence Cybersécurité', 'Experts en cybersécurité viennent partager leurs expériences et bonnes pratiques.', '2025-11-15 09:30:00', '2025-11-15 18:00:00', 'Lille Grand Palais', '/uploads/events/Conference-cybersecurite-5-sep-2024-68cc02c88e850.png', 200, 0, 1),
+(39, 8, 'Afterwork Networking', 'Événement de networking pour rencontrer d’autres professionnels du numérique.', '2025-09-25 19:00:00', '2025-09-25 23:00:00', 'Toulouse, Le Connecteur', '/uploads/events/lafterwork-la-nouvelle-arme-du-networking-6bf88b966c8e7cc05c5cd9a2895b45de-68cc027b9dee7.jpg', 100, 0, 1),
+(40, 8, 'Workshop Data Science', 'Atelier pratique sur Python, Pandas et l’analyse de données réelles.', '2025-10-30 10:00:00', '2025-10-30 16:00:00', 'Nantes, Digital Village', '/uploads/events/datascience-workshop8b9c3ec812414febbd2660dfb43aabc4-tmb-th950x345-68cc02a69baf4.jpg', 60, 0, 1),
+(41, 8, 'Salon Startups Tech', 'Un salon pour découvrir les startups innovantes de la French Tech.', '2025-11-22 09:00:00', '2025-11-23 18:00:00', 'Paris Expo Porte de Versailles', '/uploads/events/ces-salon-innovation-technologie-electronique-68cc02b998b15.jpg', 500, 0, 1),
+(42, 8, 'Cours Yoga & Tech', 'Session de yoga pour développeurs, suivie d’une conférence sur le bien-être au travail.', '2025-12-12 18:00:00', '2025-12-12 21:00:00', 'Montpellier, Coworking Zen', '/uploads/events/cours-yoga-bordeaux-1-2000-68cc0287d913e.jpg', 30, 0, 1),
+(43, 8, 'Festival Numérique', 'Festival avec ateliers, conférences et stands autour du numérique et des nouvelles technologies.', '2025-10-05 10:00:00', '2025-10-07 20:00:00', 'Strasbourg, Parc des Expositions', '/uploads/events/Sans-titre-49-4-68cc0291a4a7a.jpg', 1000, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -110,15 +121,15 @@ CREATE TABLE IF NOT EXISTS `registrations` (
   PRIMARY KEY (`id`),
   KEY `IDX_53DE51E79D86650F` (`user_id_id`),
   KEY `IDX_53DE51E73E5F2F7B` (`event_id_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `registrations`
 --
 
 INSERT INTO `registrations` (`id`, `user_id_id`, `event_id_id`, `registered_at`) VALUES
-(2, 5, 13, '2025-09-11 07:32:51'),
-(8, 2, 13, '2025-09-11 09:09:08');
+(10, 2, 16, '2025-09-15 06:59:15'),
+(12, 5, 23, '2025-09-15 13:52:56');
 
 -- --------------------------------------------------------
 
@@ -144,7 +155,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `roles`, `password`, `username`, `is_active`, `created_at`) VALUES
-(2, 'test@gmail.com', '[]', '$2y$13$FJ1EKpA9vTc4INZENAwLQuSSUQWYzMgsWi2haVWWZUudAtDeXiXRi', 'test', 0, '2025-09-05 09:28:36'),
+(2, 'test@gmail.com', '[\"ROLE_ADMIN\"]', '$2y$13$FJ1EKpA9vTc4INZENAwLQuSSUQWYzMgsWi2haVWWZUudAtDeXiXRi', 'test', 0, '2025-09-05 09:28:36'),
 (3, 'oui@gmail.com', '[]', '$2y$13$myjGJ2MG6Yw6nxg/oFLHTu95KcbZPIiaHM0LUIKfaKGKNnSUjDP2C', 'oui', 0, '2025-09-05 09:53:27'),
 (4, 'non@gmail.com', '[]', '$2y$13$tXF59co5/zieidH59fJeO.A8GPdskrkGIIMVyX0jGfgrYvVHIA/tO', 'non', 0, '2025-09-05 10:01:03'),
 (5, 'toto@gmail.com', '[]', '$2y$13$BsvtdIITp0YhM3oFBoQxIeJAzzBlEcow3GHixdn1FNP5kc5CJ3YcW', 'toto', 0, '2025-09-05 11:31:51'),

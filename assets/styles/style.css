@@ -617,4 +617,31 @@ main {
         align-items: center;
         gap: 20px;
     }
+
+    .navbar-links-desktop .btn-login {
+    border: 2px solid #F9780D;
+    color: #F9780D;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.navbar-links-desktop .btn-login:hover {
+    background-color: #F9780D;
+    color: white;
+}
+
+.navbar-links-desktop .btn-register {
+    background-color: #F9780D;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.navbar-links-desktop .btn-register:hover {
+    background-color: #d86600;
+}
 }

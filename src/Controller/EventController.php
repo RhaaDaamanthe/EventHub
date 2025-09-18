@@ -168,44 +168,53 @@ class EventController extends AbstractController
         return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
     }
 
+    // Modifier un event
+#[Route('/event/{id}/edit', name: 'app_event_edit')]
+public function edit(Request $request, Events $event, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
+{
+    if ($request->isMethod('POST')) {
+        $event->setTitle($request->request->get('title'));
+        $event->setDescription($request->request->get('description'));
+        $event->setLocation($request->request->get('location'));
+        $event->setCapacity((int)$request->request->get('capacity'));
+        $event->setStartDate(new \DateTimeImmutable($request->request->get('start_date')));
+        $event->setEndDate(new \DateTimeImmutable($request->request->get('end_date')));
+        $event->setIsPublic($request->request->has('is_public'));
 
-    #[Route('/event/{id}/edit', name: 'app_event_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Events $event, EntityManagerInterface $entityManager): Response
-    {
-        // Vérifie si l'utilisateur est le créateur de l'événement ou un administrateur
-        if ($event->getCreatedBy() !== $this->getUser() && !$this->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('error', 'Vous n\'êtes pas autorisé à modifier cet événement.');
-            return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
-        }
+        /** @var UploadedFile $imageFile */
+        $imageFile = $request->files->get('image');
 
-        // Si le formulaire est soumis (méthode POST)
-        if ($request->isMethod('POST')) {
-            // Logique de traitement du formulaire pour mettre à jour l'événement
-            $event->setTitle($request->request->get('title'));
-            $event->setDescription($request->request->get('description'));
-            $event->setLocation($request->request->get('location'));
-            $event->setCapacity($request->request->get('capacity'));
-            $event->setStartDate(new \DateTimeImmutable($request->request->get('start_date')));
-            $event->setEndDate(new \DateTimeImmutable($request->request->get('end_date')));
-            $event->setIsPublic($request->request->has('is_public'));
+        if ($imageFile && $imageFile->isValid()) {
+            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $safeFilename = $slugger->slug($originalFilename);
+            $extension = $imageFile->guessExtension() ?? 'bin';
+            $newFilename = $safeFilename.'-'.uniqid().'.'.$extension;
 
-            // Gérer le cas de la nouvelle image
-            $imageFile = $request->files->get('image');
-            if ($imageFile) {
-                // Logique de téléchargement d'une nouvelle image...
-                // Vous pouvez réutiliser le même code que dans la méthode 'new'
+            try {
+                $imageFile->move(
+                    $this->getParameter('kernel.project_dir').'/public/uploads/events',
+                    $newFilename
+                );
+                $event->setImage('/uploads/events/'.$newFilename);
+            } catch (FileException $e) {
+                $this->addFlash('error', 'Une erreur est survenue lors du téléchargement de l\'image.');
+                return $this->redirectToRoute('app_event_edit', ['id' => $event->getId()]);
             }
-
-            $entityManager->flush();
-            $this->addFlash('success', 'L\'événement a été mis à jour avec succès.');
-            return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
         }
+        // Si aucune nouvelle image, on garde l'ancienne valeur
 
-        // Afficher la page de modification avec les données de l'événement existant
-        return $this->render('event/editEvent.html.twig', [
-            'event' => $event,
-        ]);
+        $entityManager->persist($event);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Événement mis à jour avec succès !');
+        return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
     }
+
+    return $this->render('event/editEvent.html.twig', [
+        'event' => $event,
+    ]);
+}
+
     
     // Supprimer un event
     #[Route('/event/{id}/delete', name: 'app_event_delete', methods: ['POST'])]
