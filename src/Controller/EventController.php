@@ -13,6 +13,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Likes; // <-- Ligne ajoutée
 
 class EventController extends AbstractController
 {
@@ -73,6 +74,7 @@ class EventController extends AbstractController
     {
         $user = $this->getUser();
         $isRegistered = false;
+        $isLikedByUser = false; // <-- Ligne ajoutée
 
         if ($user) {
             $registration = $entityManager->getRepository(Registrations::class)->findOneBy([
@@ -81,6 +83,14 @@ class EventController extends AbstractController
                 'event_id' => $event,
             ]);
             $isRegistered = $registration !== null;
+
+            // Début du code ajouté pour les likes
+            $like = $entityManager->getRepository(Likes::class)->findOneBy([
+                'user' => $user,
+                'event' => $event,
+            ]);
+            $isLikedByUser = $like !== null;
+            // Fin du code ajouté pour les likes
         }
 
         // On récupère explicitement les inscriptions via le repository (évite getRegistrations() si mapping cassé)
@@ -92,6 +102,7 @@ class EventController extends AbstractController
             'event' => $event,
             'registrations' => $registrations,
             'isRegistered' => $isRegistered,
+            'isLikedByUser' => $isLikedByUser, // <-- Ligne ajoutée
         ]);
     }
 
@@ -169,52 +180,51 @@ class EventController extends AbstractController
     }
 
     // Modifier un event
-#[Route('/event/{id}/edit', name: 'app_event_edit')]
-public function edit(Request $request, Events $event, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
-{
-    if ($request->isMethod('POST')) {
-        $event->setTitle($request->request->get('title'));
-        $event->setDescription($request->request->get('description'));
-        $event->setLocation($request->request->get('location'));
-        $event->setCapacity((int)$request->request->get('capacity'));
-        $event->setStartDate(new \DateTimeImmutable($request->request->get('start_date')));
-        $event->setEndDate(new \DateTimeImmutable($request->request->get('end_date')));
-        $event->setIsPublic($request->request->has('is_public'));
+    #[Route('/event/{id}/edit', name: 'app_event_edit')]
+    public function edit(Request $request, Events $event, SluggerInterface $slugger, EntityManagerInterface $entityManager): Response
+    {
+        if ($request->isMethod('POST')) {
+            $event->setTitle($request->request->get('title'));
+            $event->setDescription($request->request->get('description'));
+            $event->setLocation($request->request->get('location'));
+            $event->setCapacity((int)$request->request->get('capacity'));
+            $event->setStartDate(new \DateTimeImmutable($request->request->get('start_date')));
+            $event->setEndDate(new \DateTimeImmutable($request->request->get('end_date')));
+            $event->setIsPublic($request->request->has('is_public'));
 
-        /** @var UploadedFile $imageFile */
-        $imageFile = $request->files->get('image');
+            /** @var UploadedFile $imageFile */
+            $imageFile = $request->files->get('image');
 
-        if ($imageFile && $imageFile->isValid()) {
-            $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-            $safeFilename = $slugger->slug($originalFilename);
-            $extension = $imageFile->guessExtension() ?? 'bin';
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$extension;
+            if ($imageFile && $imageFile->isValid()) {
+                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $extension = $imageFile->guessExtension() ?? 'bin';
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$extension;
 
-            try {
-                $imageFile->move(
-                    $this->getParameter('kernel.project_dir').'/public/uploads/events',
-                    $newFilename
-                );
-                $event->setImage('/uploads/events/'.$newFilename);
-            } catch (FileException $e) {
-                $this->addFlash('error', 'Une erreur est survenue lors du téléchargement de l\'image.');
-                return $this->redirectToRoute('app_event_edit', ['id' => $event->getId()]);
+                try {
+                    $imageFile->move(
+                        $this->getParameter('kernel.project_dir').'/public/uploads/events',
+                        $newFilename
+                    );
+                    $event->setImage('/uploads/events/'.$newFilename);
+                } catch (FileException $e) {
+                    $this->addFlash('error', 'Une erreur est survenue lors du téléchargement de l\'image.');
+                    return $this->redirectToRoute('app_event_edit', ['id' => $event->getId()]);
+                }
             }
+            // Si aucune nouvelle image, on garde l'ancienne valeur
+
+            $entityManager->persist($event);
+            $entityManager->flush();
+
+            $this->addFlash('success', 'Événement mis à jour avec succès !');
+            return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
         }
-        // Si aucune nouvelle image, on garde l'ancienne valeur
 
-        $entityManager->persist($event);
-        $entityManager->flush();
-
-        $this->addFlash('success', 'Événement mis à jour avec succès !');
-        return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
+        return $this->render('event/editEvent.html.twig', [
+            'event' => $event,
+        ]);
     }
-
-    return $this->render('event/editEvent.html.twig', [
-        'event' => $event,
-    ]);
-}
-
     
     // Supprimer un event
     #[Route('/event/{id}/delete', name: 'app_event_delete', methods: ['POST'])]

@@ -397,6 +397,43 @@ main {
     color: #333;
 }
 
+/* Styles pour le bouton J'aime / Je n'aime plus */
+.like-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border: 2px solid #F9780D;
+    border-radius: 8px;
+    color: #F9780D;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+}
+
+.like-btn:hover {
+    background-color: #F9780D;
+    color: white;
+}
+
+.like-btn.liked {
+    background-color: #F9780D;
+    color: white;
+    border-color: #F9780D;
+}
+
+.like-btn.liked:hover {
+    background-color: #d87a2e; /* Un peu plus foncé au survol */
+}
+
+/* Styles pour les cœurs */
+.like-btn span {
+    margin-right: 8px; /* Ajoute un espace entre le cœur et le texte */
+}
+
 .participants-list {
     margin-top: 10px;
     list-style: disc;

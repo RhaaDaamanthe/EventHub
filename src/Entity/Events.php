@@ -53,9 +53,16 @@ class Events
     #[ORM\OneToMany(mappedBy: 'event_id', targetEntity: Registrations::class, orphanRemoval: true)]
     private Collection $registrations;
 
+    /**
+     * @var Collection<int, Likes>
+     */
+    #[ORM\OneToMany(targetEntity: Likes::class, mappedBy: 'event')]
+    private Collection $likes;
+
     public function __construct()
     {
         $this->registrations = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -197,6 +204,36 @@ class Events
                 $registration->setEvent(null);
             }
         }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Likes>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Likes $like): static
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Likes $like): static
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getEvent() === $this) {
+                $like->setEvent(null);
+            }
+        }
+
         return $this;
     }
 }
