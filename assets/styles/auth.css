@@ -6,7 +6,7 @@ background-color: white;
 border-radius: 12px;
 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 width: 100%;
-max-width: 300px;
+max-width: 350px;
 margin: 50px auto 100px auto;
 padding: 30px;
 text-align: center;
@@ -143,4 +143,25 @@ border-color: #bce8f1;
     color: #888;
     font-size: 1.2rem;
     z-index: 10;
+}
+
+/* Styles pour les messages d'erreur de formulaire */
+.form-error-message {
+    font-size: 0.8rem;
+    color: #a94442; /* Couleur d'alerte rouge */
+    background-color: #f2dede; /* Fond rouge très clair */
+    border: 1px solid #ebccd1; /* Bordure plus foncée */
+    padding: 8px 12px;
+    border-radius: 4px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* Cette règle corrige le comportement par défaut de Symfony qui peut être une liste */
+.form-error-message ul,
+.form-error-message li {
+    list-style: none; /* Supprime les puces de liste */
+    margin: 0;
+    padding: 0;
 }

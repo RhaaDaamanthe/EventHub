@@ -28,18 +28,18 @@ body {
     margin-bottom: 25px;
 }
 
-/* Groupe de boutons */
-.button-group {
+/* ------------------------------------- */
+/* --- Styles des boutons d'action d'en-tête --- */
+/* ------------------------------------- */
+.header-actions {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 15px; /* Augmente l'espace entre les boutons */
+    gap: 15px;
     margin-top: 20px;
-    margin-bottom: 40px; /* Ajoute de l'espace sous les boutons */
 }
 
-/* Styles pour les deux boutons "Créer" et "Se déconnecter" */
-.profile-button,
-.auth-button {
+.btn-action {
     text-decoration: none;
     font-weight: bold;
     padding: 12px 25px;
@@ -47,30 +47,96 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid transparent;
+    text-align: center;
 }
 
-/* Styles spécifiques au bouton "Créer un événement" */
-.profile-button {
+.btn-create {
     background-color: #F9780D;
     color: white;
 }
 
-.profile-button:hover {
-    background-color: #45a049;
+.btn-create:hover {
+    background-color: #e0720c;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px); /* Effet de levage subtil */
+    transform: translateY(-2px);
 }
 
-/* Styles spécifiques au bouton "Se déconnecter" */
-.auth-button {
+.btn-logout {
     background-color: transparent;
     color: #555;
     border-color: #ccc;
 }
 
-.auth-button:hover {
+.btn-logout:hover {
     background-color: #f0f0f0;
     color: #333;
+}
+
+.btn-delete {
+    background-color: transparent;
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* ------------------------------------- */
+/* --- Styles des boutons d'action d'en-tête --- */
+/* ------------------------------------- */
+.header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-action {
+    flex-grow: 1; /* Permet aux boutons de prendre la même largeur */
+    text-decoration: none;
+    font-weight: bold;
+    padding: 12px 0; /* Padding vertical, le flexbox gère l'horizontal */
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.btn-create {
+    background-color: #F9780D;
+    color: white;
+}
+
+.btn-create:hover {
+    background-color: #e0720c;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
+
+.btn-logout {
+    background-color: transparent;
+    color: #555;
+    border-color: #ccc;
+}
+
+.btn-logout:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.btn-delete {
+    background-color: transparent;
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-delete:hover {
+    background-color: #dc3545;
+    color: white;
 }
 
 /* ====== Sections événements ====== */

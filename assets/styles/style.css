@@ -25,10 +25,6 @@ main {
     border-bottom: 2px solid #F9780D;
 }
 
-.logo-container {
-    /* Style du conteneur du logo si besoin */
-}
-
 .navbar-logo {
     height: 70px;
 }
@@ -153,7 +149,7 @@ main {
     font-weight: bold;
 }
 .navbar-links .nav-link.create-event-link {
-    color: #12db12;
+    color: #F9780D;
     font-weight: bold;
 }
 
@@ -398,25 +394,33 @@ main {
 }
 
 /* Styles pour le bouton J'aime / Je n'aime plus */
-.like-btn {
-    display: inline-flex;
+/* Style du conteneur du bouton et du compteur */
+.like-container {
+    display: flex;
     align-items: center;
+    gap: 10px;
+    margin-top: 15px; /* Ajoutez un peu d'espace avec le contenu au-dessus */
+}
+
+/* Style du bouton "J'aime" (qui contient l'icône) */
+.like-btn {
+    display: flex; /* Permet de centrer l'icône */
     justify-content: center;
-    padding: 10px 20px;
-    border: 2px solid #F9780D;
-    border-radius: 8px;
-    color: #F9780D;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    background-color: transparent;
+    color: #666;
     text-decoration: none;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 20px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .like-btn:hover {
-    background-color: #F9780D;
-    color: white;
+    border-color: #F9780D;
+    color: #F9780D;
 }
 
 .like-btn.liked {
@@ -426,12 +430,15 @@ main {
 }
 
 .like-btn.liked:hover {
-    background-color: #d87a2e; /* Un peu plus foncé au survol */
+    background-color: #d87a2e;
+    border-color: #d87a2e;
 }
 
-/* Styles pour les cœurs */
-.like-btn span {
-    margin-right: 8px; /* Ajoute un espace entre le cœur et le texte */
+/* Style du compteur de likes */
+.like-count {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #F9780D;
 }
 
 .participants-list {

@@ -30,13 +30,16 @@
         <p><strong>Créé par :</strong> {{ event.createdBy.username }}</p>
     </div>
 
+    <div class="like-container">
     <a href="{{ path('app_event_like', {'id': event.id}) }}" class="like-btn {% if isLikedByUser %}liked{% endif %}">
-    {% if isLikedByUser %}
-        ❤️ Je n'aime plus
-    {% else %}
-        🤍 J'aime
-    {% endif %}
-</a>
+        {% if isLikedByUser %}
+            <i class="fa-solid fa-heart"></i>
+        {% else %}
+            <i class="fa-regular fa-heart"></i>
+        {% endif %}
+    </a>
+    <span class="like-count">{{ event.likes|length }}</span>
+</div>
 
     <div class="event-stats mt-3">
         <p><strong>Inscriptions :</strong> {{ registrations|length }} / {{ event.capacity }}</p>

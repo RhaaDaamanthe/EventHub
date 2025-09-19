@@ -1,0 +1,22 @@
+{# templates/user/delete_account.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer mon compte{% endblock %}
+
+{% block body %}
+    <main class="auth-container">
+        <h1>Supprimer mon compte</h1>
+        <p>
+            Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.
+            Toutes vos informations, événements créés et inscriptions seront définitivement effacés.
+        </p>
+        
+        <form method="post" action="{{ path('app_user_delete') }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete-account-' ~ user.id) }}">
+            <button type="submit" class="auth-button">Confirmer la suppression</button>
+        </form>
+        
+        <a href="{{ path('app_home') }}" class="auth-link">Annuler et retourner à l'accueil</a>
+    </main>
+{% endblock %}

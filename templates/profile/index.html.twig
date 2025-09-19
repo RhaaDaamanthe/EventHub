@@ -17,20 +17,23 @@
 
 {% block body %}
 	<main>
-		<div class="auth-container">
-			<h1 class="auth-title">Mon profil</h1>
-			<p style="margin-bottom: 20px;">
-				Bienvenue sur ton profil,
-				{% if user.username is defined and user.username is not empty %}
-					{{ user.username }}
-				{% else %}
-					{{ user.userIdentifier }}
-				{% endif %}
-				!
-			</p>
-			<div class="button-group">
-				<a href="{{ path('app_create_event') }}" class="profile-button">Créer un événement</a>
-				<a href="{{ path('app_logout') }}" class="auth-button">Se déconnecter</a>
+        <div class="auth-container">
+            <h1 class="auth-title">Mon profil</h1>
+            <p style="margin-bottom: 20px;">
+                Bienvenue sur ton profil,
+                {% if user.username is defined and user.username is not empty %}
+                    {{ user.username }}
+                {% else %}
+                    {{ user.userIdentifier }}
+                {% endif %}
+                !
+            </p>
+            <div class="header-actions">
+                <a href="{{ path('app_create_event') }}" class="btn-action btn-create">Créer un événement</a>
+                <a href="{{ path('app_logout') }}" class="btn-action btn-logout">Se déconnecter</a>
+                <a href="{{ path('app_user_delete') }}" class="btn-action btn-delete">Supprimer mon compte</a>
+            </div>
+        </div>
 			</div>
 		</div>
 

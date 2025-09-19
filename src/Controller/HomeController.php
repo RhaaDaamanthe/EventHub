@@ -22,7 +22,7 @@ class HomeController extends AbstractController
         $queryBuilder = $eventsRepository->createQueryBuilder('e')
             ->where('e.is_public = :is_public')
             ->setParameter('is_public', true)
-            ->orderBy('e.start_date', 'ASC');
+            ->orderBy('e.start_date', 'DESC');
 
         // Si un terme de recherche est présent, on filtre les résultats
         if ($searchQuery) {
