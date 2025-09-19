@@ -62,10 +62,18 @@
 
 {% block bottom_header_content %}
     <div class="bottom-header">
-        <div class="search-bar-container">
-            <input type="text" placeholder="Rechercher un événement" class="search-input">
-        </div>
+    {# Formulaire de recherche #}
+    <div class="search-bar-container">
+        <form action="{{ path('app_home') }}" method="GET">
+            <input type="text" 
+                   class="search-input" 
+                   name="search" 
+                   placeholder="Rechercher un événement, une ville, etc."
+                   value="{{ app.request.get('search') }}">
+            <button type="submit" class="search-btn">Rechercher</button>
+        </form>
     </div>
+</div>
 {% endblock %}
 </header>
 

@@ -3,7 +3,9 @@
 {% block title %}S'inscrire{% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('styles/auth.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block top_header_content %}
@@ -22,18 +24,33 @@
             {{ form_errors(registrationForm) }}
 
             {{ form_start(registrationForm, {'attr': {'class': 'auth-form'}}) }}
-                <label for="registration_form_username" class="auth-label">Nom d'utilisateur</label>
-                {{ form_widget(registrationForm.username, {'attr': {'class': 'auth-input'}}) }}
+                {# Champ Nom d'utilisateur #}
+                <div class="form-group-with-icon">
+                    <i class="fa fa-user form-icon"></i>
+                    {{ form_widget(registrationForm.username, {'attr': {'class': 'auth-input', 'placeholder': 'Nom d\'utilisateur'}}) }}
+                </div>
 
-                <label for="registration_form_email" class="auth-label">Email</label>
-                {{ form_widget(registrationForm.email, {'attr': {'class': 'auth-input'}}) }}
+                {# Champ Email #}
+                <div class="form-group-with-icon">
+                    <i class="fa fa-envelope form-icon"></i>
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'auth-input', 'placeholder': 'Email'}}) }}
+                </div>
 
-                <label for="registration_form_plainPassword" class="auth-label">Mot de passe</label>
-                {{ form_widget(registrationForm.plainPassword, {
-                    label: 'Password',
-                    attr: {'class': 'auth-input'}
-                }) }}
+                {# Champ Mot de passe #}
+                <div class="form-group-with-icon password-group">
+                    <i class="fa fa-lock form-icon"></i>
+                    {{ form_widget(registrationForm.plainPassword, {
+                        'attr': {
+                            'class': 'auth-input password-input',
+                            'placeholder': 'Mot de passe'
+                        }
+                    }) }}
+                    <span class="password-toggle" onclick="togglePasswordVisibility()">
+                        <i class="fa fa-eye-slash"></i>
+                    </span>
+                </div>
 
+                {# Termes #}
                 <div class="auth-checkbox-container" style="display: flex; align-items: center; margin-top: 15px;">
                     {{ form_widget(registrationForm.agreeTerms) }}
                     <label for="registration_form_agreeTerms" style="font-size: 0.9rem; color: #666; margin-left: 5px;">Accepter les termes</label>
@@ -47,4 +64,9 @@
             {{ form_end(registrationForm) }}
         </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/auth.js') }}"></script>
 {% endblock %}

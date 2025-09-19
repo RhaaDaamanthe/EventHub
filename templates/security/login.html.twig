@@ -3,7 +3,9 @@
 {% block title %}Connexion{% endblock %}
 
 {% block stylesheets %}
+    {{ parent() }}
     <link rel="stylesheet" href="{{ asset('styles/auth.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 {% endblock %}
 
 {% block top_header_content %}
@@ -30,11 +32,22 @@
             {% endif %}
 
             <form method="post" class="auth-form">
+                {# Champ Email #}
                 <label for="username" class="auth-label">Email</label>
-                <input type="email" value="{{ last_username }}" name="_username" id="username" class="auth-input" autocomplete="email" required autofocus>
+                <div class="form-group-with-icon">
+                    <i class="fa fa-envelope form-icon"></i>
+                    <input type="email" value="{{ last_username }}" name="_username" id="username" class="auth-input" autocomplete="email" required autofocus>
+                </div>
 
+                {# Champ Mot de passe #}
                 <label for="password" class="auth-label">Mot de passe</label>
-                <input type="password" name="_password" id="password" class="auth-input" autocomplete="current-password" required>
+                <div class="form-group-with-icon password-group">
+                    <i class="fa fa-lock form-icon"></i>
+                    <input type="password" name="_password" id="password" class="auth-input password-input" autocomplete="current-password" required>
+                    <span class="password-toggle" onclick="togglePasswordVisibility()">
+                        <i class="fa fa-eye-slash"></i>
+                    </span>
+                </div>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
@@ -48,4 +61,9 @@
             </form>
         </div>
     </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/auth.js') }}"></script>
 {% endblock %}

@@ -107,3 +107,40 @@ color: #31708f;
 background-color: #d9edf7;
 border-color: #bce8f1;
 }
+
+/* Styles pour les champs de formulaire avec icônes */
+.form-group-with-icon {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.form-group-with-icon .auth-input {
+    width: 100%;
+    padding-left: 45px; /* Laissez de l'espace pour l'icône */
+}
+
+.form-group-with-icon .form-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #888;
+    font-size: 1.2rem;
+    z-index: 10;
+}
+
+/* Style de l'icône de l'œil */
+.password-group {
+    position: relative;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #888;
+    font-size: 1.2rem;
+    z-index: 10;
+}

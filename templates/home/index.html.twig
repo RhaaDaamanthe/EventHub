@@ -5,8 +5,8 @@
 {% block body %}
     <main class="container">
         <div class="events-section flex">
-            <h2 class="section-title flex">
-                <span class="events-count">{{ events|length }}</span> Événements à venir
+                        <h2 class="section-title flex">
+                <span class="events-count">{{ events.getTotalItemCount }}</span> Événements à venir
             </h2>
         </div>
 
@@ -38,6 +38,9 @@
                 <p class="no-events-message">Aucun événement public pour le moment.</p>
             {% endfor %}
         </div>
+        <div class="navigation">
+    {{ knp_pagination_render(events) }}
+</div>
     </main>
 {% endblock %}
 
