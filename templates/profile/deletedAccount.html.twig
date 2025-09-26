@@ -1,22 +1,61 @@
-{# templates/user/delete_account.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Supprimer mon compte{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/profil.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+{% endblock %}
+
+{% block top_header_content %}
+    {{ parent() }}
+{% endblock %}
+
+{% block bottom_header_content %}
+    {# Ce bloc est laissé vide pour ne pas afficher le contenu #}
+{% endblock %}
+
 {% block body %}
-    <main class="auth-container">
-        <h1>Supprimer mon compte</h1>
-        <p>
-            Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.
-            Toutes vos informations, événements créés et inscriptions seront définitivement effacés.
-        </p>
-        
-        <form method="post" action="{{ path('app_user_delete') }}">
-            <input type="hidden" name="_token" value="{{ csrf_token('delete-account-' ~ user.id) }}">
-            <button type="submit" class="auth-button">Confirmer la suppression</button>
-        </form>
-        
-        <a href="{{ path('app_home') }}" class="auth-link">Annuler et retourner à l'accueil</a>
+    <main>
+        {# Ajout de la classe "delete-page" pour un style spécifique #}
+        <div class="auth-container delete-page"> 
+            <h1 class="auth-title">Supprimer mon compte</h1>
+            <p>
+                Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est **irréversible**.
+                Toutes vos informations, événements créés et inscriptions seront définitivement effacés.
+            </p>
+            
+            <form method="post" action="{{ path('app_user_delete') }}" class="delete-form">
+                
+                {# Instructions de vérification #}
+                <p class="verification-text">
+                    Pour confirmer, veuillez taper votre nom d'utilisateur : 
+                    <span style="font-weight: bold; color: #dc3545;">{{ app.user.username|default('Pseudo inconnu') }}</span>
+                </p>
+
+                {# Champ de vérification du pseudo #}
+                <div class="form-group-with-icon">
+                    <i class="fa fa-user form-icon"></i>
+                    <input 
+                        type="text" 
+                        name="confirm_pseudo" 
+                        id="confirm_pseudo" 
+                        class="auth-input delete-input" 
+                        placeholder="Nom d'utilisateur ici" 
+                        required
+                    >
+                </div>
+
+                <input type="hidden" name="_token" value="{{ csrf_token('delete-account-' ~ app.user.id) }}">
+                
+                {# Bouton de suppression rouge et large #}
+                <button type="submit" class="auth-button btn-delete-danger">
+                    CONFIRMER LA SUPPRESSION DÉFINITIVE
+                </button>
+            </form>
+            
+            <a href="{{ path('app_home') }}" class="auth-link">Annuler et retourner à l'accueil</a>
+        </div>
     </main>
 {% endblock %}

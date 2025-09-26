@@ -318,3 +318,69 @@ body {
     background-color: #dc3545; /* Rouge */
     color: white;
 }
+
+/* ------------------------------------- */
+/* --- Styles page Supprimer mon compte --- */
+/* ------------------------------------- */
+
+/* Conteneur principal de la page de suppression */
+.auth-container.delete-page {
+    /* Style spécifique au conteneur si nécessaire */
+    width: 350px;
+    border: 2px solid #dc3545; /* Bordure rouge pour alerte */
+}
+
+.auth-container.delete-page .auth-title {
+    color: #dc3545; /* Titre rouge */
+}
+
+/* Bloc d'instructions pour la vérification */
+.verification-text {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 500;
+    margin-bottom: 25px;
+    border: 1px solid #ebccd1;
+    background-color: #f2dede; /* Fond rouge très pâle */
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Champ de saisie de vérification */
+.delete-input {
+    border-color: #dc3545 !important; /* Bordure rouge sur le champ */
+}
+
+/* Icône dans le champ de saisie de vérification */
+.delete-form .form-group-with-icon .form-icon {
+    color: #dc3545; /* Icône rouge */
+}
+
+/* Bouton d'action DANGER */
+.btn-delete-danger {
+    /* Base sur .auth-button */
+    display: inline-block;
+    width: 100%; /* S'étale sur toute la largeur du conteneur */
+    max-width: 350px; /* Limite la largeur du bouton */
+    background-color: #dc3545; /* Rouge vif */
+    color: white;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 15px 30px;
+    border-radius: 8px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-delete-danger:hover {
+    background-color: #c82333; /* Rouge plus foncé au survol */
+}
+
+/* Lien d'annulation */
+.auth-container.delete-page .auth-link a {
+    color: #555;
+}
