@@ -1,6 +1,7 @@
-// Click afficher mdp
+// La fonction doit être accessible (dans un fichier .js lié ou dans le bloc javascripts)
 function togglePasswordVisibility(fieldId) {
     const passwordField = document.getElementById(fieldId);
+    // Trouve l'icône en cherchant dans l'élément parent qui a la classe 'form-group-with-icon'
     const toggleIcon = passwordField.closest('.form-group-with-icon').querySelector('.password-toggle i');
 
     if (passwordField.type === 'password') {

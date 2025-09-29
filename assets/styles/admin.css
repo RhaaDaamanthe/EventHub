@@ -1,8 +1,12 @@
-/* Style pour la page d'administration */
+/* ================================================= */
+/* === Styles pour la page d'administration (Mobile First) === */
+/* ================================================= */
+
+/* Conteneur global */
 .admin-dashboard {
     max-width: 1000px;
-    margin: 40px auto;
-    padding: 30px;
+    margin: 40px 15px; /* Marge latérale pour mobile */
+    padding: 20px;
     background-color: #fff;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -11,12 +15,14 @@
 .admin-dashboard h1 {
     text-align: center;
     color: #F9780D;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
+    font-size: 1.8rem;
 }
 
+/* Section (Utilisateurs/Événements) */
 .admin-section {
     margin-bottom: 30px;
-    padding: 20px;
+    padding: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
     background-color: #fafafa;
@@ -25,20 +31,39 @@
 .admin-section h2 {
     color: #333;
     border-bottom: 2px solid #F9780D;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+    font-size: 1.3rem;
 }
 
+/* Boutons de bascule (Afficher/Masquer) */
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* --- Liste des éléments --- */
 .admin-list {
     list-style: none;
     padding: 0;
 }
 
 .admin-list li {
+    /* Maintient les informations et les actions sur la même ligne (Mobile et Desktop) */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
+    padding: 15px 0;
     border-bottom: 1px solid #eee;
 }
 
@@ -46,12 +71,107 @@
     border-bottom: none;
 }
 
-.admin-actions {
-    display: flex;
-    gap: 10px;
+/* Texte de l'élément (Nom/Email/Titre) */
+.admin-list li span {
+    font-weight: 500;
+    color: #333;
+    flex-grow: 1; 
+    /* Permet au texte de prendre l'espace nécessaire, en laissant la place aux boutons */
+    max-width: 60%; 
+    padding-right: 10px; 
+    word-break: break-word;
 }
 
+/* --- Conteneur des boutons d'action (Voir, Modifier, Supprimer) --- */
+.admin-actions {
+    display: flex;
+    flex-shrink: 0; /* Empêche les boutons de rétrécir */
+    gap: 5px; /* Très peu d'espace entre les boutons pour compacité */
+    align-items: center;
+}
+
+/* --- Styles des boutons (Rendus plus compacts) --- */
 .admin-actions .btn {
-    font-size: 0.8rem;
-    padding: 5px 10px;
+    /* Taille réduite pour un affichage côte à côte optimisé */
+    font-size: 0.7rem; 
+    padding: 4px 7px; /* Réduit le padding */
+    border-radius: 4px; 
+    text-decoration: none;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Empêche le texte du bouton de se couper */
+}
+
+/* Ajustement pour le bouton "Supprimer" qui est dans un formulaire */
+.admin-actions form button.btn {
+    padding: 4px 7px;
+}
+
+/* --- Couleurs des boutons prédéfinies --- */
+
+/* Bouton Voir/Info (Bleu) */
+.btn-info { 
+    background-color: #007bff; 
+    color: white; 
+}
+.btn-info:hover {
+    background-color: #0056b3;
+}
+
+/* Bouton Modifier/Warning (Jaune/Orange) */
+.btn-warning { 
+    background-color: #ffc107; 
+    color: #333; 
+}
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+/* Bouton de Suppression (Rouge Vif) - Utilisé avec la classe btn-action-delete */
+.btn-action-delete {
+    background-color: #dc3545; 
+    color: white;
+}
+
+.btn-action-delete:hover {
+    background-color: #c82333; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+
+/* ================================================= */
+/* === Media Query (Desktop - >= 768px) === */
+/* ================================================= */
+@media (min-width: 768px) {
+
+    .admin-dashboard {
+        margin: 40px auto; 
+        padding: 40px;
+    }
+    
+    .admin-dashboard h1 {
+        font-size: 2.5rem;
+    }
+    
+    /* Le texte peut prendre un peu plus de place sur desktop */
+    .admin-list li span {
+        max-width: 70%;
+    }
+
+    /* Les actions restent bien espacées */
+    .admin-actions {
+        gap: 10px;
+    }
+
+    /* Les boutons sont légèrement plus grands sur desktop */
+    .admin-actions .btn {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+    }
+    .admin-actions form button.btn {
+        padding: 6px 10px;
+    }
 }

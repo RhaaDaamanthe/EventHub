@@ -1,13 +1,23 @@
-/* Styles généraux de la page de profil */
+/* ------------------------------------- */
+/* --- Styles généraux --- */
+/* ------------------------------------- */
 body {
     background-color: #f4f4f9;
     font-family: Poppins, sans-serif;
     color: #333;
 }
 
+.profile-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* ------------------------------------- */
+/* --- En-tête du profil --- */
+/* ------------------------------------- */
 .auth-container {
-    max-width: 800px;
-    margin: 40px auto;
+    margin: 0 auto 40px;
     padding: 30px;
     background-color: #ffffff;
     border-radius: 12px;
@@ -16,251 +26,244 @@ body {
 }
 
 .auth-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     color: #F9780D;
     margin-bottom: 10px;
 }
 
-.auth-container p {
+.welcome-text {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.welcome-text strong {
+    color: #F9780D;
+    font-weight: 600;
+}
+
+/* ------------------------------------- */
+/* --- Boutons d'action --- */
+/* ------------------------------------- */
+.header-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-action {
+    width: 100%;
+    padding: 14px 20px;
+    text-decoration: none;
+    font-weight: 600;
     font-size: 1rem;
-    color: #555;
-    margin-bottom: 25px;
-}
-
-/* ------------------------------------- */
-/* --- Styles des boutons d'action d'en-tête --- */
-/* ------------------------------------- */
-.header-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.btn-action {
-    text-decoration: none;
-    font-weight: bold;
-    padding: 12px 25px;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid transparent;
     text-align: center;
+    display: inline-block;
 }
 
-.btn-create {
+.btn-profile-create {
     background-color: #F9780D;
     color: white;
 }
 
-.btn-create:hover {
+.btn-profile-create:hover {
     background-color: #e0720c;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
 }
 
-.btn-logout {
+.btn-profile-logout {
     background-color: transparent;
     color: #555;
     border-color: #ccc;
 }
 
-.btn-logout:hover {
+.btn-profile-logout:hover {
     background-color: #f0f0f0;
     color: #333;
 }
 
-.btn-delete {
+.btn-profile-delete {
     background-color: transparent;
     color: #dc3545;
     border-color: #dc3545;
 }
 
-.btn-delete:hover {
+.btn-profile-delete:hover {
     background-color: #dc3545;
     color: white;
 }
 
 /* ------------------------------------- */
-/* --- Styles des boutons d'action d'en-tête --- */
+/* --- Sections événements --- */
 /* ------------------------------------- */
-.header-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.btn-action {
-    flex-grow: 1; /* Permet aux boutons de prendre la même largeur */
-    text-decoration: none;
-    font-weight: bold;
-    padding: 12px 0; /* Padding vertical, le flexbox gère l'horizontal */
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-    text-align: center;
-}
-
-.btn-create {
-    background-color: #F9780D;
-    color: white;
-}
-
-.btn-create:hover {
-    background-color: #e0720c;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: translateY(-2px);
-}
-
-.btn-logout {
-    background-color: transparent;
-    color: #555;
-    border-color: #ccc;
-}
-
-.btn-logout:hover {
-    background-color: #f0f0f0;
-    color: #333;
-}
-
-.btn-delete {
-    background-color: transparent;
-    color: #dc3545;
-    border-color: #dc3545;
-}
-
-.btn-delete:hover {
-    background-color: #dc3545;
-    color: white;
-}
-
-/* ====== Sections événements ====== */
 .events-section {
-    margin: 40px auto;
-    padding: 20px;
-    max-width: 90%;
+    margin-bottom: 40px;
+    padding: 25px;
     background: #fff;
     border-radius: 12px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .events-section h2 {
     font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: #000; /* Titres en noir */
-    border-bottom: 2px solid #444;
-    padding-bottom: 8px;
+    margin-bottom: 20px;
+    color: #333;
+    border-bottom: 3px solid #F9780D;
+    padding-bottom: 10px;
+    font-weight: 600;
 }
 
-.events-section ul {
+.events-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.events-section li {
+.event-item {
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px solid #444;
+    gap: 12px;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    transition: all 0.2s ease;
 }
 
-.events-section li:last-child {
+.event-item:last-child {
     border-bottom: none;
 }
 
-/* Liens vers les événements */
-.events-section span {
-    color: #000;
-    text-decoration: none;
-    font-weight: 500;
-    max-width: 70px;
+.event-item:hover {
+    background-color: #f9f9f9;
+    border-radius: 8px;
 }
 
-/* Actions (boutons) */
+.event-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 0;
+}
+
+.event-title {
+    color: #333;
+    font-weight: 600;
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.event-date {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+/* Actions des événements */
 .event-actions {
     display: flex;
-    gap: 10px;
+    gap: 8px;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
 }
 
 .event-actions .btn {
-    padding: 5px 10px;
-    font-size: 0.85rem;
+    padding: 6px 12px;
+    font-size: 0.8rem;
     border-radius: 6px;
-    color: white; /* Pour que le texte soit lisible sur le bouton */
+    color: white;
     border: none;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    white-space: nowrap;
 }
 
-.participants-list .btn-voir-profil {
-    background-color: #FFC107 !important;
-    border-color: #FFC107 !important;
-    color: #212529 !important; /* Couleur du texte pour qu'il reste lisible */
-    padding: 0.25rem 0.5rem; /* Réduire la taille du bouton */
-    font-size: 0.875rem; /* Rendre la police plus petite */
-    line-height: 1.5;
-    border-radius: 0.2rem;
-}
-
-.participants-list .btn-voir-profil:hover {
-    background-color: #e0a800 !important;
-    border-color: #e0a800 !important;
-}
-/* Bouton 'Voir' (correspondant au 'btn-info' de Bootstrap) */
 .btn-info {
     background-color: #FFC107;
+    color: #212529;
 }
 
-.bin-icon {
-    width: 20px;
-    height: auto;
-    /* margin: 2px; */
+.btn-info:hover {
+    background-color: #e0a800;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .btn-danger {
     background-color: #dc3545;
+    padding: 6px 10px;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.bin-icon {
+    width: 16px;
+    height: auto;
+    display: block;
 }
 
 .btn-warning {
     background-color: #dc3545;
-    width: 70px;
     border: none;
-    color: #fff;
-    padding: 5px 10px;
-    font-size: 0.85rem;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.8rem;
     border-radius: 6px;
-    text-transform: capitalize;
+    font-weight: 500;
+    transition: all 0.2s ease;
 }
 
-/* userProfile */
+.btn-warning:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
 
-/* Style pour l'en-tête du pseudo */
+/* Message vide */
+.empty-message {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+/* ------------------------------------- */
+/* --- Styles Admin (userProfile) --- */
+/* ------------------------------------- */
 .profile-username {
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: #333;
     font-weight: 700;
     margin-bottom: 20px;
     padding: 10px 20px;
-    border: 2px solid #F9780D; /* Bordure orange */
-    display: inline-block; /* Pour que la bordure ne prenne pas toute la largeur */
+    border: 2px solid #F9780D;
+    display: inline-block;
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
 }
 
-/* Ajustements pour la section d'informations */
 .profile-info-section {
     text-align: center;
     padding: 20px;
     margin-bottom: 20px;
 }
 
-/* Style pour le tableau d'informations de l'admin */
 .user-details-table {
     margin-top: 25px;
 }
@@ -291,17 +294,15 @@ body {
 .user-details-table tr td:first-child {
     background-color: #f8f9fa;
     font-weight: 600;
-    width: 30%; /* Largeur pour la colonne des étiquettes */
+    width: 30%;
 }
 
-/* Styles pour les icônes */
 .user-details-table i {
-    color: #F9780D; /* Couleur orange des icônes */
+    color: #F9780D;
     margin-right: 8px;
     font-size: 1.1rem;
 }
 
-/* Styles pour le statut Actif/Inactif */
 .status {
     padding: 4px 8px;
     border-radius: 5px;
@@ -310,60 +311,68 @@ body {
 }
 
 .status.active {
-    background-color: #28a745; /* Vert */
+    background-color: #28a745;
     color: white;
 }
 
 .status.inactive {
-    background-color: #dc3545; /* Rouge */
+    background-color: #dc3545;
     color: white;
 }
 
-/* ------------------------------------- */
-/* --- Styles page Supprimer mon compte --- */
-/* ------------------------------------- */
+.participants-list .btn-voir-profil {
+    background-color: #FFC107 !important;
+    border-color: #FFC107 !important;
+    color: #212529 !important;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
 
-/* Conteneur principal de la page de suppression */
+.participants-list .btn-voir-profil:hover {
+    background-color: #e0a800 !important;
+    border-color: #e0a800 !important;
+}
+
+/* ------------------------------------- */
+/* --- Page Supprimer mon compte --- */
+/* ------------------------------------- */
 .auth-container.delete-page {
-    /* Style spécifique au conteneur si nécessaire */
-    width: 350px;
-    border: 2px solid #dc3545; /* Bordure rouge pour alerte */
+    max-width: 500px;
+    margin: 60px auto;
+    border: 2px solid #dc3545;
 }
 
 .auth-container.delete-page .auth-title {
-    color: #dc3545; /* Titre rouge */
+    color: #dc3545;
 }
 
-/* Bloc d'instructions pour la vérification */
 .verification-text {
     font-size: 1.1rem;
     color: #333;
     font-weight: 500;
     margin-bottom: 25px;
     border: 1px solid #ebccd1;
-    background-color: #f2dede; /* Fond rouge très pâle */
+    background-color: #f2dede;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
 }
 
-/* Champ de saisie de vérification */
 .delete-input {
-    border-color: #dc3545 !important; /* Bordure rouge sur le champ */
+    border-color: #dc3545 !important;
 }
 
-/* Icône dans le champ de saisie de vérification */
 .delete-form .form-group-with-icon .form-icon {
-    color: #dc3545; /* Icône rouge */
+    color: #dc3545;
 }
 
-/* Bouton d'action DANGER */
 .btn-delete-danger {
-    /* Base sur .auth-button */
     display: inline-block;
-    width: 100%; /* S'étale sur toute la largeur du conteneur */
-    max-width: 350px; /* Limite la largeur du bouton */
-    background-color: #dc3545; /* Rouge vif */
+    width: 100%;
+    max-width: 350px;
+    background-color: #dc3545;
     color: white;
     font-size: 1.1rem;
     font-weight: bold;
@@ -377,10 +386,112 @@ body {
 }
 
 .btn-delete-danger:hover {
-    background-color: #c82333; /* Rouge plus foncé au survol */
+    background-color: #c82333;
 }
 
-/* Lien d'annulation */
 .auth-container.delete-page .auth-link a {
     color: #555;
+}
+
+/* ------------------------------------- */
+/* --- Media Queries Tablettes --- */
+/* ------------------------------------- */
+@media (min-width: 768px) {
+    .profile-main {
+        padding: 40px;
+    }
+
+    .auth-title {
+        font-size: 2.5rem;
+    }
+
+    .auth-container {
+        padding: 40px;
+    }
+
+    /* Boutons en ligne */
+    .header-actions {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .btn-action {
+        flex: 1 1 0;
+        max-width: 250px;
+        min-width: 200px;
+    }
+
+    /* Événements en ligne */
+    .event-item {
+        flex-wrap: nowrap;
+        padding: 18px 0;
+    }
+
+    .event-info {
+        flex-direction: row;
+        align-items: baseline;
+        gap: 15px;
+    }
+    
+    .event-title {
+        font-size: 1.1rem;
+    }
+    
+    .event-date {
+        font-size: 0.9rem;
+    }
+
+    .event-date::before {
+        content: "•";
+        margin-right: 8px;
+        color: #F9780D;
+    }
+
+    .events-section h2 {
+        font-size: 1.75rem;
+    }
+
+    .event-actions {
+        gap: 10px;
+    }
+
+    .event-actions .btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+    
+    .btn-danger {
+        padding: 8px 12px;
+    }
+    
+    .bin-icon {
+        width: 18px;
+    }
+    
+    .btn-warning {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ------------------------------------- */
+/* --- Media Queries Desktop --- */
+/* ------------------------------------- */
+@media (min-width: 1024px) {
+    .profile-main {
+        max-width: 1000px;
+    }
+
+    .events-section {
+        padding: 30px 40px;
+    }
+
+    .event-item {
+        padding: 20px 0;
+    }
+
+    .event-title {
+        font-size: 1.15rem;
+    }
 }

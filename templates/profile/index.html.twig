@@ -1,7 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Profil
-{% endblock %}
+{% block title %}Profil{% endblock %}
 
 {% block top_header_content %}
 	{{ parent() }}
@@ -16,41 +15,55 @@
 {% endblock %}
 
 {% block body %}
-	<main>
-        <div class="auth-container">
-            <h1 class="auth-title">Mon profil</h1>
-            <p style="margin-bottom: 20px;">
-                Bienvenue sur ton profil,
-                {% if user.username is defined and user.username is not empty %}
-                    {{ user.username }}
-                {% else %}
-                    {{ user.userIdentifier }}
-                {% endif %}
-                !
-            </p>
-            <div class="header-actions">
-                <a href="{{ path('app_create_event') }}" class="btn-action btn-create">Créer un événement</a>
-                <a href="{{ path('app_logout') }}" class="btn-action btn-logout">Se déconnecter</a>
-                <a href="{{ path('app_user_delete') }}" class="btn-action btn-delete">Supprimer mon compte</a>
-            </div>
-        </div>
+	<main class="profile-main">
+		{# En-tête du profil avec informations utilisateur #}
+		<div class="auth-container">
+			<h1 class="auth-title">Mon profil</h1>
+			<p class="welcome-text">
+				Bienvenue sur ton profil,
+				<strong>
+					{% if user.username is defined and user.username is not empty %}
+						{{ user.username }}
+					{% else %}
+						{{ user.userIdentifier }}
+					{% endif %}
+				</strong>
+				!
+			</p>
+			
+			{# Boutons d'action principaux #}
+			<div class="header-actions">
+				<a href="{{ path('app_create_event') }}" class="btn-action btn-profile-create">
+					Créer un événement
+				</a>
+				<a href="{{ path('app_logout') }}" class="btn-action btn-profile-logout">
+					Se déconnecter
+				</a>
+				<a href="{{ path('app_user_delete') }}" class="btn-action btn-profile-delete">
+					Supprimer mon compte
+				</a>
 			</div>
 		</div>
 
-		<div class="events-section">
+		{# Section : Événements créés #}
+		<section class="events-section">
 			<h2>Mes événements créés</h2>
 			{% if createdEvents is not empty %}
-				<ul>
+				<ul class="events-list">
 					{% for event in createdEvents %}
-						<li>
-							<span>{{ event.title }}</span>
-							({{ event.startDate|date('d/m/Y H:i') }})
-
+						<li class="event-item">
+							<div class="event-info">
+								<span class="event-title">{{ event.title }}</span>
+								<span class="event-date">{{ event.startDate|date('d/m/Y H:i') }}</span>
+							</div>
+							
 							<div class="event-actions">
-								<a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-info btn-sm">Voir</a>
+								<a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-info btn-sm">
+									Voir
+								</a>
 								<form method="post" action="{{ path('app_event_delete', {'id': event.id}) }}" style="display:inline-block" onsubmit="return confirm('Supprimer cet événement ?');">
 									<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
-									<button class="btn btn-danger btn-sm">
+									<button type="submit" class="btn btn-danger btn-sm" title="Supprimer">
 										<img src="{{ asset('images/icones/bin.svg') }}" alt="Supprimer" class="bin-icon">
 									</button>
 								</form>
@@ -59,28 +72,36 @@
 					{% endfor %}
 				</ul>
 			{% else %}
-				<p>Vous n'avez encore créé aucun événement.</p>
+				<p class="empty-message">Vous n'avez encore créé aucun événement.</p>
 			{% endif %}
-		</div>
+		</section>
 
-		<div class="events-section">
+		{# Section : Inscriptions #}
+		<section class="events-section">
 			<h2>Mes inscriptions</h2>
 			{% if joinedEvents is not empty %}
-				<ul>
+				<ul class="events-list">
 					{% for event in joinedEvents %}
-						<li>
-							<span>{{ event.title }}</span>
-							({{ event.startDate|date('d/m/Y H:i') }})
-							<div class="event-actions">
-								<a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-info btn-sm">Voir</a>
+						<li class="event-item">
+							<div class="event-info">
+								<span class="event-title">{{ event.title }}</span>
+								<span class="event-date">{{ event.startDate|date('d/m/Y H:i') }}</span>
 							</div>
-							<a href="{{ path('app_event_quit', {'id': event.id}) }}" class="btn btn-warning btn-sm">Quitter</a>
+							
+							<div class="event-actions">
+								<a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-info btn-sm">
+									Voir
+								</a>
+								<a href="{{ path('app_event_quit', {'id': event.id}) }}" class="btn btn-warning btn-sm">
+									Quitter
+								</a>
+							</div>
 						</li>
 					{% endfor %}
 				</ul>
 			{% else %}
-				<p>Vous n'êtes inscrit à aucun événement pour le moment.</p>
+				<p class="empty-message">Vous n'êtes inscrit à aucun événement pour le moment.</p>
 			{% endif %}
-		</div>
+		</section>
 	</main>
 {% endblock %}

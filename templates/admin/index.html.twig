@@ -1,11 +1,10 @@
-{# templates/admin/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
 {% block title %}Panneau d'administration{% endblock %}
 
 {% block stylesheets %}
-    {# Inclut les styles généraux de votre application #}
+    {{ parent() }}
+    {# Assurez-vous d'inclure le fichier CSS ici #}
     <link rel="stylesheet" href="{{ asset('styles/admin.css') }}">
 {% endblock %}
 
@@ -23,15 +22,28 @@
 
     <div class="admin-section">
         <h2>Utilisateurs ({{ users|length }})</h2>
-        {# Bouton pour basculer la liste des utilisateurs #}
-        <button id="toggle-users" class="btn btn-secondary btn-sm mb-3">Afficher la liste</button>
-        {# La liste des utilisateurs, avec l'id nécessaire au JavaScript #}
-        <ul class="admin-list" id="user-list">
+        {# Bouton pour basculer la liste des utilisateurs (la liste est cachée par défaut) #}
+        <button id="toggle-users" class="btn-toggle btn-secondary btn-sm mb-3">Afficher la liste</button>
+        
+        <ul class="admin-list" id="user-list" style="display: none;">
             {% for user in users %}
                 <li>
-                    <span>{{ user.username }} ({{ user.email }})</span>
+                    {# Affichage du nom, email et rôle (en rouge si admin) #}
+                    <span>
+                        {{ user.username }} ({{ user.email }}) 
+                        {% if 'ROLE_ADMIN' in user.roles %}
+                            <strong style="color: #F9780D;">(ADMIN)</strong>
+                        {% endif %}
+                    </span>
                     <div class="admin-actions">
+                        
                         <a href="{{ path('app_user_profile', {'id': user.id}) }}" class="btn btn-info btn-sm">Voir profil</a>
+                        
+                        {# Bouton Supprimer l'utilisateur (ROUGE) #}
+                        <form method="post" action="{{ path('app_user_delete_admin', {'id': user.id}) }}" style="display:inline-block" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ? Cette action est irréversible.');">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ user.id) }}">
+                            <button class="btn btn-action-delete btn-sm">Supprimer</button>
+                        </form>
                     </div>
                 </li>
             {% endfor %}
@@ -40,19 +52,21 @@
 
     <div class="admin-section">
         <h2>Événements ({{ events|length }})</h2>
-        {# Bouton pour basculer la liste des événements #}
-        <button id="toggle-events" class="btn btn-secondary btn-sm mb-3">Afficher la liste</button>
-        {# La liste des événements, avec l'id nécessaire au JavaScript #}
-        <ul class="admin-list" id="event-list">
+        {# Bouton pour basculer la liste des événements (la liste est cachée par défaut) #}
+        <button id="toggle-events" class="btn-toggle btn-secondary btn-sm mb-3">Afficher la liste</button>
+        
+        <ul class="admin-list" id="event-list" style="display: none;">
             {% for event in events %}
                 <li>
                     <span>{{ event.title }}</span>
                     <div class="admin-actions">
                         <a href="{{ path('app_event_show', {'id': event.id}) }}" class="btn btn-info btn-sm">Voir</a>
                         <a href="{{ path('app_event_edit', {'id': event.id}) }}" class="btn btn-warning btn-sm">Modifier</a>
+                        
+                        {# Bouton Supprimer l'événement (ROUGE) #}
                         <form method="post" action="{{ path('app_event_delete', {'id': event.id}) }}" style="display:inline-block" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet événement ?');">
                             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
-                            <button class="btn btn-danger btn-sm">Supprimer</button>
+                            <button class="btn btn-action-delete btn-sm">Supprimer</button>
                         </form>
                     </div>
                 </li>
@@ -64,5 +78,6 @@
 
 {% block javascripts %}
     {{ parent() }}
+    {# Assurez-vous que votre fichier admin.js existe pour la bascule des listes #}
     <script src="{{ asset('js/admin.js') }}"></script>
 {% endblock %}

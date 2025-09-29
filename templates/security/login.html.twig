@@ -39,22 +39,29 @@
                     <input type="email" value="{{ last_username }}" name="_username" id="username" class="auth-input" autocomplete="email" required autofocus>
                 </div>
 
-                {# Champ Mot de passe #}
-                <label for="password" class="auth-label">Mot de passe</label>
-                <div class="form-group-with-icon password-group">
-                    <i class="fa fa-lock form-icon"></i>
-                    <input type="password" name="_password" id="password" class="auth-input password-input" autocomplete="current-password" required>
-                    <span class="password-toggle" onclick="togglePasswordVisibility()">
-                        <i class="fa fa-eye-slash"></i>
-                    </span>
-                </div>
+            <label for="password" class="auth-label">Mot de passe</label>
+            <div class="form-group-with-icon password-group">
 
+                <i class="fa fa-lock form-icon" aria-hidden="true"></i>
+                <input 
+                    type="password" 
+                    name="_password" 
+                    id="password" 
+                    class="auth-input" 
+                    autocomplete="current-password" 
+                    required>
+                <span 
+                    class="password-toggle" 
+                    onclick="togglePasswordVisibility('password')">
+                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                </span>
+            </div>
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
                 <button type="submit" class="auth-button">
                     Se connecter
                 </button>
-
+                
                 <p class="auth-link">
                     Vous n'avez pas de compte ? <a href="{{ path('app_register') }}">S'inscrire</a>
                 </p>
