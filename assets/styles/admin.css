@@ -5,7 +5,7 @@
 /* Conteneur global */
 .admin-dashboard {
     max-width: 1000px;
-    margin: 40px 15px; /* Marge latérale pour mobile */
+    margin: 40px 15px 160px 15px;
     padding: 20px;
     background-color: #fff;
     border-radius: 12px;
@@ -148,7 +148,7 @@
 @media (min-width: 768px) {
 
     .admin-dashboard {
-        margin: 40px auto; 
+        margin: 40px auto 200px; 
         padding: 40px;
     }
     
