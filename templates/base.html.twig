@@ -91,14 +91,12 @@
     document.addEventListener('DOMContentLoaded', function() {
         const burgerBtn = document.querySelector('.menu-burger');
         const navLinks = document.querySelector('.navbar-links');
-        const closeBtn = document.querySelector('.close-menu'); // Sélectionnez le nouveau bouton
+        const closeBtn = document.querySelector('.close-menu');
 
         if (burgerBtn && navLinks && closeBtn) {
-            // Ouvre le menu
             burgerBtn.addEventListener('click', () => {
                 navLinks.classList.add('active');
             });
-            // Ferme le menu
             closeBtn.addEventListener('click', () => {
                 navLinks.classList.remove('active');
             });
