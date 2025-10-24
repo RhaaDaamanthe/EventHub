@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Controller;
 
 use App\Entity\Events;
@@ -13,7 +12,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Entity\Likes; // <-- Ligne ajoutée
+use App\Entity\Likes;
 
 class EventController extends AbstractController
 {
@@ -74,26 +73,22 @@ class EventController extends AbstractController
     {
         $user = $this->getUser();
         $isRegistered = false;
-        $isLikedByUser = false; // <-- Ligne ajoutée
+        $isLikedByUser = false;
 
         if ($user) {
             $registration = $entityManager->getRepository(Registrations::class)->findOneBy([
-                // ici on utilise les noms des propriétés de ton entité Registrations
                 'user_id' => $user,
                 'event_id' => $event,
             ]);
             $isRegistered = $registration !== null;
 
-            // Début du code ajouté pour les likes
             $like = $entityManager->getRepository(Likes::class)->findOneBy([
                 'user' => $user,
                 'event' => $event,
             ]);
             $isLikedByUser = $like !== null;
-            // Fin du code ajouté pour les likes
         }
 
-        // On récupère explicitement les inscriptions via le repository (évite getRegistrations() si mapping cassé)
         $registrations = $entityManager->getRepository(Registrations::class)->findBy([
             'event_id' => $event,
         ]);
@@ -102,7 +97,7 @@ class EventController extends AbstractController
             'event' => $event,
             'registrations' => $registrations,
             'isRegistered' => $isRegistered,
-            'isLikedByUser' => $isLikedByUser, // <-- Ligne ajoutée
+            'isLikedByUser' => $isLikedByUser,
         ]);
     }
 
@@ -134,7 +129,6 @@ class EventController extends AbstractController
 
         $entityManager->persist($registration);
 
-        // Mettre à jour le compteur (optionnel)
         $current = $event->getRegisteredCount() ?? 0;
         $event->setRegisteredCount($current + 1);
         $entityManager->persist($event);
@@ -146,7 +140,7 @@ class EventController extends AbstractController
         return $this->redirectToRoute('app_event_show', ['id' => $event->getId()]);
     }
 
-    // Quitter un event (se désinscrire)
+    // Quitter un event
     #[Route('/event/{id}/quit', name: 'app_event_quit', methods: ['GET','POST'])]
     public function quit(Events $event, EntityManagerInterface $entityManager): Response
     {
@@ -212,7 +206,6 @@ class EventController extends AbstractController
                     return $this->redirectToRoute('app_event_edit', ['id' => $event->getId()]);
                 }
             }
-            // Si aucune nouvelle image, on garde l'ancienne valeur
 
             $entityManager->persist($event);
             $entityManager->flush();
