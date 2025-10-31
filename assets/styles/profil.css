@@ -1,6 +1,4 @@
-/* ------------------------------------- */
 /* --- Styles généraux --- */
-/* ------------------------------------- */
 body {
     background-color: #f4f4f9;
     font-family: Poppins, sans-serif;
@@ -13,9 +11,8 @@ body {
     padding: 20px;
 }
 
-/* ------------------------------------- */
 /* --- En-tête du profil --- */
-/* ------------------------------------- */
+
 .auth-container {
     margin: 0 auto 40px;
     padding: 30px;
@@ -43,9 +40,8 @@ body {
     font-weight: 600;
 }
 
-/* ------------------------------------- */
 /* --- Boutons d'action --- */
-/* ------------------------------------- */
+
 .header-actions {
     display: flex;
     flex-direction: column;
@@ -99,9 +95,7 @@ body {
     color: white;
 }
 
-/* ------------------------------------- */
 /* --- Sections événements --- */
-/* ------------------------------------- */
 .events-section {
     margin-bottom: 40px;
     padding: 25px;
@@ -242,9 +236,7 @@ body {
     padding: 30px 20px;
 }
 
-/* ------------------------------------- */
 /* --- Styles Admin (userProfile) --- */
-/* ------------------------------------- */
 .profile-username {
     font-size: 2rem;
     color: #333;
@@ -335,9 +327,7 @@ body {
     border-color: #e0a800 !important;
 }
 
-/* ------------------------------------- */
 /* --- Page Supprimer mon compte --- */
-/* ------------------------------------- */
 .auth-container.delete-page {
     max-width: 500px;
     margin: 60px auto;
@@ -393,9 +383,7 @@ body {
     color: #555;
 }
 
-/* ------------------------------------- */
 /* --- Media Queries Tablettes --- */
-/* ------------------------------------- */
 @media (min-width: 768px) {
     .profile-main {
         padding: 40px;
@@ -475,9 +463,7 @@ body {
     }
 }
 
-/* ------------------------------------- */
 /* --- Media Queries Desktop --- */
-/* ------------------------------------- */
 @media (min-width: 1024px) {
     .profile-main {
         max-width: 1000px;
